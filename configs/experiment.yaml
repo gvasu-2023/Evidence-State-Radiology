@@ -1,0 +1,37 @@
+project:
+  name: "Evidence-State-Aware Radiology Report Generation"
+  version: "0.1.0"
+
+evidence_states:
+  - sufficient
+  - incomplete
+  - irrelevant
+  - conflicting
+  - insufficient
+
+conditions:
+  sufficient:
+    enabled: true
+  incomplete:
+    enabled: true
+  irrelevant:
+    enabled: true
+  conflicting:
+    enabled: true
+  insufficient:
+    enabled: true
+
+evaluation:
+  metrics:
+    - radgraph_f1
+    - unsupported_claim_rate
+    - chexpert_f1
+    - ece
+    - brier_score
+    - coverage
+    - abstention_precision
+    - abstention_recall
+
+system:
+  use_rag: false
+  use_knowledge_graph: false
