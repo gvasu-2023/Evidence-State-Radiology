@@ -1,0 +1,120 @@
+conflicts:
+
+  IU_1:
+    approved: true
+    target: "pleural effusion"
+    type: "negative_finding_contradiction"
+    conflicting_context: "Pleural effusion is present."
+    evidence_basis: "reference_findings"
+
+  IU_2:
+    approved: true
+    target: "borderline cardiomegaly"
+    type: "positive_finding_negation"
+    conflicting_context: "There is no cardiomegaly."
+    evidence_basis: "reference_findings"
+
+  IU_4:
+    approved: false
+    target: ""
+    type: ""
+    conflicting_context: ""
+    evidence_basis: ""
+
+  IU_5:
+    approved: true
+    target: "pleural effusion"
+    type: "negative_finding_contradiction"
+    conflicting_context: "Pleural effusion is present."
+    evidence_basis: "reference_findings"
+
+  IU_6:
+    approved: true
+    target: "focal airspace consolidation"
+    type: "negative_finding_contradiction"
+    conflicting_context: "Focal airspace consolidation is present."
+    evidence_basis: "reference_findings"
+
+  IU_7:
+    approved: true
+    target: "basilar atelectasis"
+    type: "positive_finding_negation"
+    conflicting_context: "There is no basilar atelectasis."
+    evidence_basis: "reference_findings"
+
+  IU_8:
+    approved: true
+    target: "focal airspace opacity"
+    type: "negative_finding_contradiction"
+    conflicting_context: "A focal airspace opacity is present."
+    evidence_basis: "reference_findings"
+
+  IU_9:
+    approved: false
+    target: ""
+    type: ""
+    conflicting_context: ""
+    evidence_basis: ""
+
+  IU_10:
+    approved: true
+    target: "pleural effusion"
+    type: "negative_finding_contradiction"
+    conflicting_context: "Pleural effusion is present."
+    evidence_basis: "reference_findings"
+
+  IU_11:
+    approved: true
+    target: "pleural effusion"
+    type: "negative_finding_contradiction"
+    conflicting_context: "Pleural effusion is present."
+    evidence_basis: "reference_findings"
+
+  IU_14:
+    approved: true
+    target: "pulmonary edema"
+    type: "negative_finding_contradiction"
+    conflicting_context: "Pulmonary edema is present."
+    evidence_basis: "reference_findings"
+
+  IU_17:
+    approved: true
+    target: "pleural effusion"
+    type: "negative_finding_contradiction"
+    conflicting_context: "Pleural effusion is present."
+    evidence_basis: "reference_findings"
+
+  IU_18:
+    approved: true
+    target: "pulmonary edema"
+    type: "negative_finding_contradiction"
+    conflicting_context: "Pulmonary edema is present."
+    evidence_basis: "reference_findings"
+
+  IU_19:
+    approved: true
+    target: "pleural effusion"
+    type: "negative_finding_contradiction"
+    conflicting_context: "Pleural effusion is present."
+    evidence_basis: "reference_findings"
+
+  IU_20:
+    approved: true
+    target: "pneumothorax"
+    type: "negative_finding_contradiction"
+    conflicting_context: "A pneumothorax is present."
+    evidence_basis: "reference_findings"
+
+  IU_22:
+    approved: true
+    target: "pneumothorax"
+    type: "negative_finding_contradiction"
+    conflicting_context: "A pneumothorax is present."
+    evidence_basis: "reference_findings"
+
+  IU_23:
+    approved: true
+    target: "pleural effusion"
+    type: "negative_finding_contradiction"
+    conflicting_context: "A pleural effusion is present."
+    evidence_basis: "reference_findings"

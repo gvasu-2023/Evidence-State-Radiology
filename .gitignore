@@ -16,3 +16,5 @@ models/
 .env
 
 results/raw/
+data/samples/images/
+external_data/
