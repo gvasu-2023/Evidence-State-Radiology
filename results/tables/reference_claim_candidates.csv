@@ -1,0 +1,67 @@
+sample_id,finding,polarity,matched_pattern
+IU_1,consolidation,NEGATED,consolidation
+IU_1,pleural effusion,NEGATED,pleural effusion
+IU_1,pneumothorax,NEGATED,pneumothorax
+IU_1,pulmonary edema,NEGATED,pulmonary edema
+IU_10,airspace opacity,NEGATED,airspace disease
+IU_10,granulomatous disease,AFFIRMED,calcified granuloma
+IU_10,pleural effusion,NEGATED,pleural effusion
+IU_10,pneumothorax,NEGATED,pneumothorax
+IU_11,pleural effusion,NEGATED,pleural effusion
+IU_11,pneumothorax,NEGATED,pneumothorax
+IU_12,pleural effusion,NEGATED,pleural effusion
+IU_12,pneumothorax,NEGATED,pneumothorax
+IU_13,cardiomegaly,AFFIRMED,borderline enlarged
+IU_13,pleural effusion,NEGATED,pleural effusion
+IU_13,pneumothorax,NEGATED,pneumothorax
+IU_14,consolidation,NEGATED,consolidation
+IU_14,hyperinflation,AFFIRMED,hyperinflation
+IU_14,interstitial abnormality,AFFIRMED,interstitial
+IU_14,pleural effusion,NEGATED,pleural effusion
+IU_14,pulmonary edema,NEGATED,pulmonary edema
+IU_15,granulomatous disease,AFFIRMED,granulomatous disease
+IU_15,pleural effusion,NEGATED,pleural effusion
+IU_15,pneumothorax,NEGATED,pneumothorax
+IU_17,consolidation,NEGATED,consolidation
+IU_17,pleural effusion,NEGATED,pleural effusion
+IU_17,pneumothorax,NEGATED,pneumothorax
+IU_18,consolidation,NEGATED,consolidation
+IU_18,pleural effusion,NEGATED,pleural effusion
+IU_18,pneumothorax,NEGATED,pneumothorax
+IU_18,pulmonary edema,NEGATED,pulmonary edema
+IU_19,airspace opacity,NEGATED,airspace disease
+IU_19,degenerative change,AFFIRMED,degenerative change
+IU_19,pleural effusion,NEGATED,pleural effusion
+IU_19,pneumothorax,NEGATED,pneumothoraces
+IU_2,cardiomegaly,AFFIRMED,cardiomegaly
+IU_20,degenerative change,AFFIRMED,degenerative change
+IU_20,pneumothorax,NEGATED,pneumothorax
+IU_22,airspace opacity,NEGATED,air space opacity
+IU_22,pleural effusion,NEGATED,pleural effusion
+IU_22,pneumothorax,NEGATED,pneumothorax
+IU_23,airspace opacity,NEGATED,airspace disease
+IU_23,pleural effusion,NEGATED,pleural effusion
+IU_23,pneumothorax,NEGATED,pneumothorax
+IU_4,emphysema,AFFIRMED,emphysema
+IU_4,interstitial abnormality,AFFIRMED,interstitial
+IU_4,pleural effusion,NEGATED,pleural effusion
+IU_4,pneumothorax,NEGATED,pneumothorax
+IU_5,consolidation,NEGATED,consolidation
+IU_5,hyperinflation,AFFIRMED,hyperexpanded
+IU_5,pleural effusion,NEGATED,pleural effusion
+IU_5,pleural thickening,AFFIRMED,pleural thickening
+IU_5,pneumothorax,NEGATED,pneumothorax
+IU_6,consolidation,NEGATED,consolidation
+IU_6,degenerative change,AFFIRMED,degenerative change
+IU_6,pleural effusion,NEGATED,pleural effusion
+IU_6,pneumothorax,NEGATED,pneumothorax
+IU_7,atelectasis,AFFIRMED,atelectasis
+IU_7,consolidation,NEGATED,consolidation
+IU_7,pleural effusion,NEGATED,pleural effusion
+IU_8,airspace opacity,NEGATED,air space opacity
+IU_8,pleural effusion,NEGATED,pleural effusion
+IU_8,pneumothorax,NEGATED,pneumothorax
+IU_9,consolidation,NEGATED,consolidation
+IU_9,granulomatous disease,AFFIRMED,calcified granuloma
+IU_9,pleural effusion,NEGATED,pleural effusion
+IU_9,pneumothorax,NEGATED,pneumothorax

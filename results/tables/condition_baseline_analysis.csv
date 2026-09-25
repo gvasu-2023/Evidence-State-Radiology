@@ -1,0 +1,6 @@
+condition,case_count,empty_report_count,unique_report_count,duplicate_report_rate,mean_report_length_chars,median_report_length_chars,mean_inference_time_seconds,claim_count,affirmed_claim_count,negated_claim_count,unclear_claim_count
+sufficient,17,0,17,0.0,322.7647058823529,310.0,6.851927711764053,42,0,42,0
+incomplete,9,0,9,0.0,308.0,303.0,6.5947332666667835,27,0,27,0
+irrelevant,20,0,20,0.0,320.15,322.5,6.790923064998788,44,0,44,0
+conflicting,15,0,9,0.6,322.6666666666667,318.0,6.603083353333932,41,0,41,0
+insufficient,20,0,6,0.8,252.95,251.0,6.570895015000497,76,0,76,0
