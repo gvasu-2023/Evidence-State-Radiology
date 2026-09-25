@@ -1,0 +1,231 @@
+sample_id,condition,finding,polarity,source_sentence
+IU_1,sufficient,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_1,sufficient,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_1,sufficient,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_1,irrelevant,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_1,irrelevant,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_1,irrelevant,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_1,conflicting,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_1,conflicting,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_1,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_1,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_1,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_1,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_2,sufficient,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_2,sufficient,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_2,sufficient,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_2,irrelevant,pneumothorax,NEGATED,there is no pneumothorax.
+IU_2,irrelevant,pleural effusion,NEGATED,there is no pleural effusion.
+IU_2,conflicting,consolidation,NEGATED,"there is no focal consolidation, pleural effusion, or pneumothorax."
+IU_2,conflicting,pleural effusion,NEGATED,"there is no focal consolidation, pleural effusion, or pneumothorax."
+IU_2,conflicting,pneumothorax,NEGATED,"there is no focal consolidation, pleural effusion, or pneumothorax."
+IU_2,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_2,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_2,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_2,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_4,sufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_4,sufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_4,irrelevant,pleural effusion,NEGATED,no pleural effusion or pneumothorax is identified.
+IU_4,irrelevant,pneumothorax,NEGATED,no pleural effusion or pneumothorax is identified.
+IU_4,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_4,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_4,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax : the cardiomediastinal silhouette is normal.
+IU_4,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax : the cardiomediastinal silhouette is normal.
+IU_5,sufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_5,sufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_5,incomplete,pleural effusion,NEGATED,no pleural effusion or pneumothorax evident.
+IU_5,incomplete,pneumothorax,NEGATED,no pleural effusion or pneumothorax evident.
+IU_5,irrelevant,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_5,irrelevant,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_5,conflicting,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_5,conflicting,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_5,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_5,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_5,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_5,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_6,sufficient,pleural effusion,NEGATED,there are no pleural effusions.
+IU_6,sufficient,pneumothorax,NEGATED,no pneumothorax is seen.
+IU_6,irrelevant,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_6,irrelevant,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_6,irrelevant,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_6,conflicting,pleural effusion,NEGATED,there are no pleural effusions.
+IU_6,conflicting,pneumothorax,NEGATED,no pneumothorax is seen.
+IU_6,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_6,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_6,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_6,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_7,sufficient,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_7,sufficient,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_7,sufficient,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_7,irrelevant,pleural effusion,NEGATED,no pleural effusion or pneumothorax is present.
+IU_7,irrelevant,pneumothorax,NEGATED,no pleural effusion or pneumothorax is present.
+IU_7,conflicting,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_7,conflicting,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_7,conflicting,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_7,conflicting,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_7,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_7,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_7,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_7,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_8,sufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_8,sufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_8,incomplete,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_8,incomplete,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_8,incomplete,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_8,incomplete,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_8,irrelevant,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_8,irrelevant,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_8,irrelevant,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_8,conflicting,pleural effusion,NEGATED,there are no pleural effusions.
+IU_8,conflicting,pneumothorax,NEGATED,no pneumothorax is seen.
+IU_8,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_8,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_8,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_8,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_9,sufficient,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_9,sufficient,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_9,sufficient,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_9,incomplete,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_9,incomplete,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_9,incomplete,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_9,irrelevant,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_9,irrelevant,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_9,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_9,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_9,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_9,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_10,sufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_10,sufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_10,incomplete,pleural effusion,NEGATED,there is no pneumothorax or pleural effusion.
+IU_10,incomplete,pneumothorax,NEGATED,there is no pneumothorax or pleural effusion.
+IU_10,irrelevant,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_10,irrelevant,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_10,irrelevant,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_10,conflicting,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_10,conflicting,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_10,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_10,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_10,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_10,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_11,sufficient,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_11,sufficient,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_11,sufficient,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_11,incomplete,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_11,incomplete,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_11,incomplete,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_11,irrelevant,pleural effusion,NEGATED,no pleural effusion or pneumothorax is present.
+IU_11,irrelevant,pneumothorax,NEGATED,no pleural effusion or pneumothorax is present.
+IU_11,conflicting,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_11,conflicting,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_11,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_11,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_11,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_11,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_12,irrelevant,consolidation,NEGATED,"there is no focal consolidation, pleural effusion, or pneumothorax."
+IU_12,irrelevant,pleural effusion,NEGATED,"there is no focal consolidation, pleural effusion, or pneumothorax."
+IU_12,irrelevant,pneumothorax,NEGATED,"there is no focal consolidation, pleural effusion, or pneumothorax."
+IU_12,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_12,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_12,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_12,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_13,irrelevant,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_13,irrelevant,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_13,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_13,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_13,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_13,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_14,sufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_14,sufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_14,incomplete,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_14,incomplete,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_14,conflicting,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_14,conflicting,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_14,conflicting,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_14,conflicting,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_14,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_14,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_14,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_14,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_15,irrelevant,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_15,irrelevant,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_15,insufficient,consolidation,NEGATED,the lungs are clear without focal consolidation.
+IU_15,insufficient,pleural effusion,NEGATED,no pleural effusion or pneumothorax is seen.
+IU_15,insufficient,pneumothorax,NEGATED,no pleural effusion or pneumothorax is seen.
+IU_17,sufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_17,sufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_17,incomplete,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_17,incomplete,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_17,incomplete,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_17,incomplete,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_17,irrelevant,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_17,irrelevant,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_17,conflicting,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_17,conflicting,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_17,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_17,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_17,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_17,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_18,sufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_18,sufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_18,incomplete,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_18,incomplete,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_18,incomplete,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_18,incomplete,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_18,irrelevant,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_18,irrelevant,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_18,irrelevant,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion or pneumothorax."
+IU_18,conflicting,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_18,conflicting,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_18,conflicting,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_18,conflicting,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_18,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_18,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_18,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_18,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_19,sufficient,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_19,sufficient,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_19,sufficient,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_19,conflicting,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_19,conflicting,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_19,insufficient,consolidation,NEGATED,"there is no focal consolidation, effusion, or pneumothorax."
+IU_19,insufficient,pneumothorax,NEGATED,"there is no focal consolidation, effusion, or pneumothorax."
+IU_20,sufficient,consolidation,NEGATED,"there is no focal consolidation, pleural effusion, or pneumothorax."
+IU_20,sufficient,pleural effusion,NEGATED,"there is no focal consolidation, pleural effusion, or pneumothorax."
+IU_20,sufficient,pneumothorax,NEGATED,"there is no focal consolidation, pleural effusion, or pneumothorax."
+IU_20,irrelevant,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_20,irrelevant,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_20,conflicting,consolidation,NEGATED,"there is no pneumothorax, focal consolidation, or pleural effusion."
+IU_20,conflicting,pleural effusion,NEGATED,"there is no pneumothorax, focal consolidation, or pleural effusion."
+IU_20,conflicting,pneumothorax,NEGATED,"there is no pneumothorax, focal consolidation, or pleural effusion."
+IU_20,conflicting,pneumothorax,NEGATED,impression : no pneumothorax.
+IU_20,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_20,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_20,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_20,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.
+IU_22,sufficient,pleural effusion,NEGATED,no pleural effusion or pneumothorax.
+IU_22,sufficient,pneumothorax,NEGATED,no pleural effusion or pneumothorax.
+IU_22,irrelevant,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_22,irrelevant,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_22,irrelevant,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_22,conflicting,consolidation,NEGATED,"there is no pneumothorax, focal consolidation, or pleural effusion."
+IU_22,conflicting,pleural effusion,NEGATED,"there is no pneumothorax, focal consolidation, or pleural effusion."
+IU_22,conflicting,pneumothorax,NEGATED,"there is no pneumothorax, focal consolidation, or pleural effusion."
+IU_22,conflicting,pneumothorax,NEGATED,impression : no pneumothorax.
+IU_22,insufficient,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_22,insufficient,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_22,insufficient,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_23,sufficient,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_23,sufficient,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_23,sufficient,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_23,incomplete,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_23,incomplete,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_23,incomplete,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_23,irrelevant,consolidation,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_23,irrelevant,pleural effusion,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_23,irrelevant,pneumothorax,NEGATED,"the lungs are clear without focal consolidation, pleural effusion, or pneumothorax."
+IU_23,conflicting,pleural effusion,NEGATED,there are no pleural effusions.
+IU_23,conflicting,pneumothorax,NEGATED,no pneumothorax is seen.
+IU_23,insufficient,consolidation,NEGATED,the lungs are clear without consolidation or edema.
+IU_23,insufficient,pulmonary edema,NEGATED,the lungs are clear without consolidation or edema.
+IU_23,insufficient,pleural effusion,NEGATED,there is no pleural effusion or pneumothorax.
+IU_23,insufficient,pneumothorax,NEGATED,there is no pleural effusion or pneumothorax.

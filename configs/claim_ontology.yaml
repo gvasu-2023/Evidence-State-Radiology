@@ -1,0 +1,22 @@
+finding_mappings:
+
+  "borderline cardiomegaly":
+    extractor_finding: "cardiomegaly"
+
+  "focal airspace consolidation":
+    extractor_finding: "consolidation"
+
+  "basilar atelectasis":
+    extractor_finding: "atelectasis"
+
+  "focal airspace opacity":
+    extractor_finding: "airspace opacity"
+
+  "pleural effusion":
+    extractor_finding: "pleural effusion"
+
+  "pulmonary edema":
+    extractor_finding: "pulmonary edema"
+
+  "pneumothorax":
+    extractor_finding: "pneumothorax"
