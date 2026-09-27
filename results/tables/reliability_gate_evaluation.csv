@@ -1,0 +1,82 @@
+sample_id,experimental_condition,transformation_type,image_available,context_available,context_relevant,context_consistent,evidence_strength,predicted_evidence_state,state_matches_condition,gate_action,gate_reason,expected_gate_action,gate_action_matches_expected
+IU_1,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_1,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_1,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_1,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_2,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_2,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_2,conflicting,positive_finding_negation,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_2,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_4,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_4,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_4,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_5,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_5,incomplete,partial_context_reduction,True,True,True,True,1.0,sufficient,False,generate,Evidence is sufficient and context is consistent.,qualify,False
+IU_5,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_5,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_5,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_6,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_6,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_6,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_6,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_7,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_7,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_7,conflicting,positive_finding_negation,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_7,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_8,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_8,incomplete,partial_context_reduction,True,True,True,True,1.0,sufficient,False,generate,Evidence is sufficient and context is consistent.,qualify,False
+IU_8,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_8,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_8,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_9,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_9,incomplete,partial_context_reduction,True,True,True,True,1.0,sufficient,False,generate,Evidence is sufficient and context is consistent.,qualify,False
+IU_9,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_9,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_10,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_10,incomplete,partial_context_reduction,True,True,True,True,1.0,sufficient,False,generate,Evidence is sufficient and context is consistent.,qualify,False
+IU_10,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_10,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_10,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_11,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_11,incomplete,partial_context_reduction,True,True,True,True,1.0,sufficient,False,generate,Evidence is sufficient and context is consistent.,qualify,False
+IU_11,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_11,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_11,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_12,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_12,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_13,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_13,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_14,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_14,incomplete,partial_context_reduction,True,True,True,True,1.0,sufficient,False,generate,Evidence is sufficient and context is consistent.,qualify,False
+IU_14,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_14,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_14,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_15,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_15,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_17,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_17,incomplete,partial_context_reduction,True,True,True,True,1.0,sufficient,False,generate,Evidence is sufficient and context is consistent.,qualify,False
+IU_17,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_17,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_17,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_18,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_18,incomplete,partial_context_reduction,True,True,True,True,1.0,sufficient,False,generate,Evidence is sufficient and context is consistent.,qualify,False
+IU_18,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_18,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_18,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_19,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_19,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_19,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_19,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_20,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_20,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_20,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_20,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_22,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_22,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_22,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_22,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
+IU_23,sufficient,none,True,True,True,True,1.0,sufficient,True,generate,Evidence is sufficient and context is consistent.,generate,True
+IU_23,incomplete,partial_context_reduction,True,True,True,True,1.0,sufficient,False,generate,Evidence is sufficient and context is consistent.,qualify,False
+IU_23,irrelevant,cross_case_context_swap,True,True,False,True,1.0,irrelevant,True,discount_context,Provided clinical context is not relevant to the imaging task.,discount_context,True
+IU_23,conflicting,negative_finding_contradiction,True,True,True,False,1.0,conflicting,True,qualify_or_abstain,Clinical context conflicts with available evidence.,qualify_or_abstain,True
+IU_23,insufficient,context_removed,True,False,True,True,1.0,incomplete,False,qualify,Relevant clinical context is incomplete.,abstain,False
