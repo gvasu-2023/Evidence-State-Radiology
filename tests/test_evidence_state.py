@@ -32,7 +32,8 @@ def test_missing_context():
         evidence_strength=0.8,
     )
 
-    assert analyzer.classify(assessment) == EvidenceState.INCOMPLETE
+    assert analyzer.classify(assessment) == EvidenceState.INSUFFICIENT
+
 
 
 def test_conflicting_context():

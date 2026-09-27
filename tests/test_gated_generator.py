@@ -73,10 +73,11 @@ def test_predicted_states_preserve_phase9_discrepancies():
     assert (con["predicted_evidence_state"] == "conflicting").all()
     assert (con["gate_action"] == "qualify_or_abstain").all()
 
-    # insufficient -> incomplete / qualify (Phase 9 structural discrepancy)
+    # insufficient -> insufficient / abstain (Phase 12B calibrated hierarchy)
     ins = gated_df[gated_df["experimental_condition"] == "insufficient"]
-    assert (ins["predicted_evidence_state"] == "incomplete").all()
-    assert (ins["gate_action"] == "qualify").all()
+    assert (ins["predicted_evidence_state"] == "insufficient").all()
+    assert (ins["gate_action"] == "abstain").all()
+
 
 
 def test_zero_redundant_inference():

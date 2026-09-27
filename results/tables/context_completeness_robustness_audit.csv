@@ -1,0 +1,34 @@
+context_text,expected_behavior,predicted_context_complete,false_incomplete,rule_triggered,source_type
+Positive TB test,complete,True,False,none,dataset_observation
+Preop bariatric surgery.,complete,True,False,none,dataset_observation
+Evaluate for infection,complete,True,False,none,dataset_observation
+Preop lumbar surgery,complete,True,False,none,dataset_observation
+Chest pain.,complete,True,False,none,dataset_observation
+Dyspnea,complete,True,False,none,dataset_observation
+Chest and nasal congestion.,complete,True,False,none,dataset_observation
+"Fatigue, weakness, anterior chest pain",complete,True,False,none,dataset_observation
+"XXXX-year-old male, chest pain.",complete,True,False,none,dataset_observation
+"XXXX-year-old female, chest pain",complete,True,False,none,dataset_observation
+"Nausea, vomiting, preop for surgery",complete,True,False,none,dataset_observation
+"XXXX, preop for abdominal aortic aneurysm repair",complete,True,False,none,dataset_observation
+XXXX-year-old with XXXX on XXXX. Dyspnea. History of mitral valve prolapse.,complete,True,False,none,dataset_observation
+Chest pain today. History of stent placement 7+ years ago.,complete,True,False,none,dataset_observation
+nasal congestion.,incomplete,False,False,lowercase_initial,dataset_observation
+History of mitral valve prolapse.,incomplete,False,False,history_without_primary_indicator,dataset_observation
+History of stent placement 7+ years ago.,incomplete,False,False,history_without_primary_indicator,dataset_observation
+chest pain.,incomplete,False,False,lowercase_initial,dataset_observation
+anterior chest pain,incomplete,False,False,lowercase_initial,dataset_observation
+chest pain,incomplete,False,False,lowercase_initial,dataset_observation
+pain,incomplete,False,False,lowercase_initial,dataset_observation
+preop for surgery,incomplete,False,False,lowercase_initial,dataset_observation
+Chest pain.,complete,True,False,none,controlled_example
+Dyspnea.,complete,True,False,none,controlled_example
+Pain.,complete,True,False,none,controlled_example
+Preoperative evaluation.,complete,True,False,none,controlled_example
+History of mitral valve prolapse.,complete,False,True,history_without_primary_indicator,controlled_example
+History of asthma.,complete,False,True,history_without_primary_indicator,controlled_example
+History of CHF.,complete,False,True,history_without_primary_indicator,controlled_example
+History of stent placement 7+ years ago.,complete,False,True,history_without_primary_indicator,controlled_example
+Nausea and vomiting.,complete,True,False,none,controlled_example
+Cough.,complete,True,False,none,controlled_example
+Shortness of breath.,complete,True,False,none,controlled_example

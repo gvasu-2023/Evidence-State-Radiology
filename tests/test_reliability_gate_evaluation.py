@@ -86,11 +86,12 @@ def test_observed_incomplete_structural_discrepancy():
     assert (inc["state_matches_condition"] == False).all()
 
 
-def test_observed_insufficient_structural_discrepancy():
+def test_observed_insufficient_structural_behavior():
     eval_df = run_evaluation()
     insuff = eval_df[eval_df["experimental_condition"] == "insufficient"]
     assert len(insuff) == 20
-    # Prototype behavior: context removed with ES=1.0 -> analyzer predicts incomplete / qualify
-    assert (insuff["predicted_evidence_state"] == "incomplete").all()
-    assert (insuff["gate_action"] == "qualify").all()
-    assert (insuff["state_matches_condition"] == False).all()
+    # Calibrated hierarchy behavior: context removed with ES=1.0 -> analyzer predicts insufficient / abstain
+    assert (insuff["predicted_evidence_state"] == "insufficient").all()
+    assert (insuff["gate_action"] == "abstain").all()
+    assert (insuff["state_matches_condition"] == True).all()
+
