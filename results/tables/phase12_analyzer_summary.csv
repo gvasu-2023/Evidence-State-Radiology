@@ -1,0 +1,7 @@
+condition,total_cases,correct_cases,alignment_rate,predicted_state_distribution,expected_state_distribution,pred_sufficient,pred_incomplete,pred_irrelevant,pred_conflicting,pred_insufficient
+overall,81,52,0.6419753086419753,"{'sufficient': 26, 'irrelevant': 20, 'incomplete': 20, 'conflicting': 15}","{'irrelevant': 20, 'insufficient': 20, 'sufficient': 17, 'conflicting': 15, 'incomplete': 9}",26,20,20,15,0
+sufficient,17,17,1.0,{'sufficient': 17},{'sufficient': 17},17,0,0,0,0
+incomplete,9,0,0.0,{'sufficient': 9},{'incomplete': 9},9,0,0,0,0
+irrelevant,20,20,1.0,{'irrelevant': 20},{'irrelevant': 20},0,0,20,0,0
+conflicting,15,15,1.0,{'conflicting': 15},{'conflicting': 15},0,0,0,15,0
+insufficient,20,0,0.0,{'incomplete': 20},{'insufficient': 20},0,20,0,0,0
