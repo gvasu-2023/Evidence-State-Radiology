@@ -20,3 +20,15 @@ finding_mappings:
 
   "pneumothorax":
     extractor_finding: "pneumothorax"
+
+  "right upper lobe opacity":
+    extractor_finding: "airspace opacity"
+
+  "pneumonia":
+    extractor_finding: "pneumonia"
+
+  "infiltrate":
+    extractor_finding: "infiltrate"
+
+  "fracture":
+    extractor_finding: "fracture"

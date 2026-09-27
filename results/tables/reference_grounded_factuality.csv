@@ -1,0 +1,366 @@
+sample_id,condition,finding,generated_polarity,reference_polarity,label
+IU_1,conflicting,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_1,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_1,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_1,conflicting,pulmonary edema,NOT_MENTIONED,NEGATED,omission
+IU_1,insufficient,consolidation,NEGATED,NEGATED,supported
+IU_1,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_1,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_1,insufficient,pulmonary edema,NEGATED,NEGATED,supported
+IU_1,irrelevant,consolidation,NEGATED,NEGATED,supported
+IU_1,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_1,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_1,irrelevant,pulmonary edema,NOT_MENTIONED,NEGATED,omission
+IU_1,sufficient,consolidation,NEGATED,NEGATED,supported
+IU_1,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_1,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_1,sufficient,pulmonary edema,NOT_MENTIONED,NEGATED,omission
+IU_10,conflicting,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_10,conflicting,granulomatous disease,NOT_MENTIONED,AFFIRMED,omission
+IU_10,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_10,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_10,incomplete,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_10,incomplete,granulomatous disease,NOT_MENTIONED,AFFIRMED,omission
+IU_10,incomplete,pleural effusion,NEGATED,NEGATED,supported
+IU_10,incomplete,pneumothorax,NEGATED,NEGATED,supported
+IU_10,insufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_10,insufficient,consolidation,NEGATED,,extra_negation
+IU_10,insufficient,granulomatous disease,NOT_MENTIONED,AFFIRMED,omission
+IU_10,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_10,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_10,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_10,irrelevant,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_10,irrelevant,consolidation,NEGATED,,extra_negation
+IU_10,irrelevant,granulomatous disease,NOT_MENTIONED,AFFIRMED,omission
+IU_10,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_10,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_10,sufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_10,sufficient,granulomatous disease,NOT_MENTIONED,AFFIRMED,omission
+IU_10,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_10,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_11,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_11,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_11,incomplete,consolidation,NEGATED,,extra_negation
+IU_11,incomplete,pleural effusion,NEGATED,NEGATED,supported
+IU_11,incomplete,pneumothorax,NEGATED,NEGATED,supported
+IU_11,insufficient,consolidation,NEGATED,,extra_negation
+IU_11,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_11,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_11,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_11,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_11,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_11,sufficient,consolidation,NEGATED,,extra_negation
+IU_11,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_11,sufficient,pneumonia,NEGATED,,extra_negation
+IU_11,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_12,insufficient,consolidation,NEGATED,,extra_negation
+IU_12,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_12,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_12,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_12,irrelevant,consolidation,NEGATED,,extra_negation
+IU_12,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_12,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_13,insufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_13,insufficient,cardiomegaly,NOT_MENTIONED,AFFIRMED,omission
+IU_13,insufficient,consolidation,NEGATED,,extra_negation
+IU_13,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_13,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_13,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_13,irrelevant,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_13,irrelevant,cardiomegaly,NOT_MENTIONED,AFFIRMED,omission
+IU_13,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_13,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_14,conflicting,consolidation,NEGATED,NEGATED,supported
+IU_14,conflicting,hyperinflation,NOT_MENTIONED,AFFIRMED,omission
+IU_14,conflicting,interstitial abnormality,NOT_MENTIONED,AFFIRMED,omission
+IU_14,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_14,conflicting,pneumothorax,NEGATED,,extra_negation
+IU_14,conflicting,pulmonary edema,NEGATED,NEGATED,supported
+IU_14,incomplete,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_14,incomplete,hyperinflation,NOT_MENTIONED,AFFIRMED,omission
+IU_14,incomplete,interstitial abnormality,NOT_MENTIONED,AFFIRMED,omission
+IU_14,incomplete,pleural effusion,NEGATED,NEGATED,supported
+IU_14,incomplete,pneumothorax,NEGATED,,extra_negation
+IU_14,incomplete,pulmonary edema,NOT_MENTIONED,NEGATED,omission
+IU_14,insufficient,consolidation,NEGATED,NEGATED,supported
+IU_14,insufficient,hyperinflation,NOT_MENTIONED,AFFIRMED,omission
+IU_14,insufficient,interstitial abnormality,NOT_MENTIONED,AFFIRMED,omission
+IU_14,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_14,insufficient,pneumothorax,NEGATED,,extra_negation
+IU_14,insufficient,pulmonary edema,NEGATED,NEGATED,supported
+IU_14,irrelevant,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_14,irrelevant,hyperinflation,NOT_MENTIONED,AFFIRMED,omission
+IU_14,irrelevant,infiltrate,NEGATED,,extra_negation
+IU_14,irrelevant,interstitial abnormality,NOT_MENTIONED,AFFIRMED,omission
+IU_14,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_14,irrelevant,pulmonary edema,NOT_MENTIONED,NEGATED,omission
+IU_14,sufficient,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_14,sufficient,hyperinflation,NOT_MENTIONED,AFFIRMED,omission
+IU_14,sufficient,interstitial abnormality,NOT_MENTIONED,AFFIRMED,omission
+IU_14,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_14,sufficient,pneumothorax,NEGATED,,extra_negation
+IU_14,sufficient,pulmonary edema,NOT_MENTIONED,NEGATED,omission
+IU_15,insufficient,consolidation,NEGATED,,extra_negation
+IU_15,insufficient,fracture,NEGATED,,extra_negation
+IU_15,insufficient,granulomatous disease,NOT_MENTIONED,AFFIRMED,omission
+IU_15,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_15,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_15,irrelevant,granulomatous disease,NOT_MENTIONED,AFFIRMED,omission
+IU_15,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_15,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_17,conflicting,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_17,conflicting,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_17,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_17,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_17,incomplete,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_17,incomplete,consolidation,NEGATED,NEGATED,supported
+IU_17,incomplete,pleural effusion,NEGATED,NEGATED,supported
+IU_17,incomplete,pneumothorax,NEGATED,NEGATED,supported
+IU_17,incomplete,pulmonary edema,NEGATED,,extra_negation
+IU_17,insufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_17,insufficient,consolidation,NEGATED,NEGATED,supported
+IU_17,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_17,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_17,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_17,irrelevant,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_17,irrelevant,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_17,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_17,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_17,sufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_17,sufficient,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_17,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_17,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_18,conflicting,consolidation,NEGATED,NEGATED,supported
+IU_18,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_18,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_18,conflicting,pulmonary edema,NEGATED,NEGATED,supported
+IU_18,incomplete,consolidation,NEGATED,NEGATED,supported
+IU_18,incomplete,pleural effusion,NEGATED,NEGATED,supported
+IU_18,incomplete,pneumothorax,NEGATED,NEGATED,supported
+IU_18,incomplete,pulmonary edema,NEGATED,NEGATED,supported
+IU_18,insufficient,consolidation,NEGATED,NEGATED,supported
+IU_18,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_18,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_18,insufficient,pulmonary edema,NEGATED,NEGATED,supported
+IU_18,irrelevant,consolidation,NEGATED,NEGATED,supported
+IU_18,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_18,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_18,irrelevant,pulmonary edema,NOT_MENTIONED,NEGATED,omission
+IU_18,sufficient,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_18,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_18,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_18,sufficient,pulmonary edema,NOT_MENTIONED,NEGATED,omission
+IU_19,conflicting,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_19,conflicting,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_19,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_19,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_19,insufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_19,insufficient,consolidation,NEGATED,,extra_negation
+IU_19,insufficient,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_19,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_19,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_19,irrelevant,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_19,irrelevant,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_19,irrelevant,pleural effusion,NOT_MENTIONED,NEGATED,omission
+IU_19,irrelevant,pneumothorax,NOT_MENTIONED,NEGATED,omission
+IU_19,sufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_19,sufficient,consolidation,NEGATED,,extra_negation
+IU_19,sufficient,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_19,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_19,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_2,conflicting,cardiomegaly,NOT_MENTIONED,AFFIRMED,omission
+IU_2,conflicting,consolidation,NEGATED,,extra_negation
+IU_2,conflicting,pleural effusion,NEGATED,,extra_negation
+IU_2,conflicting,pneumothorax,NEGATED,,extra_negation
+IU_2,insufficient,cardiomegaly,NOT_MENTIONED,AFFIRMED,omission
+IU_2,insufficient,consolidation,NEGATED,,extra_negation
+IU_2,insufficient,pleural effusion,NEGATED,,extra_negation
+IU_2,insufficient,pneumothorax,NEGATED,,extra_negation
+IU_2,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_2,irrelevant,cardiomegaly,NOT_MENTIONED,AFFIRMED,omission
+IU_2,irrelevant,pleural effusion,NEGATED,,extra_negation
+IU_2,irrelevant,pneumothorax,NEGATED,,extra_negation
+IU_2,sufficient,cardiomegaly,NOT_MENTIONED,AFFIRMED,omission
+IU_2,sufficient,consolidation,NEGATED,,extra_negation
+IU_2,sufficient,pleural effusion,NEGATED,,extra_negation
+IU_2,sufficient,pneumothorax,NEGATED,,extra_negation
+IU_20,conflicting,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_20,conflicting,consolidation,NEGATED,,extra_negation
+IU_20,conflicting,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_20,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_20,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_20,insufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_20,insufficient,consolidation,NEGATED,,extra_negation
+IU_20,insufficient,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_20,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_20,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_20,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_20,irrelevant,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_20,irrelevant,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_20,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_20,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_20,sufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_20,sufficient,consolidation,NEGATED,,extra_negation
+IU_20,sufficient,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_20,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_20,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_22,conflicting,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_22,conflicting,consolidation,NEGATED,,extra_negation
+IU_22,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_22,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_22,insufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_22,insufficient,consolidation,NEGATED,,extra_negation
+IU_22,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_22,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_22,irrelevant,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_22,irrelevant,consolidation,NEGATED,,extra_negation
+IU_22,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_22,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_22,sufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_22,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_22,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_23,conflicting,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_23,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_23,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_23,incomplete,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_23,incomplete,consolidation,NEGATED,,extra_negation
+IU_23,incomplete,pleural effusion,NEGATED,NEGATED,supported
+IU_23,incomplete,pneumothorax,NEGATED,NEGATED,supported
+IU_23,insufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_23,insufficient,consolidation,NEGATED,,extra_negation
+IU_23,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_23,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_23,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_23,irrelevant,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_23,irrelevant,consolidation,NEGATED,,extra_negation
+IU_23,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_23,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_23,sufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_23,sufficient,consolidation,NEGATED,,extra_negation
+IU_23,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_23,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_4,insufficient,airspace opacity,NOT_MENTIONED,AFFIRMED,omission
+IU_4,insufficient,consolidation,NEGATED,,extra_negation
+IU_4,insufficient,emphysema,NOT_MENTIONED,AFFIRMED,omission
+IU_4,insufficient,interstitial abnormality,NOT_MENTIONED,AFFIRMED,omission
+IU_4,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_4,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_4,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_4,irrelevant,airspace opacity,AFFIRMED,AFFIRMED,supported
+IU_4,irrelevant,emphysema,NOT_MENTIONED,AFFIRMED,omission
+IU_4,irrelevant,interstitial abnormality,NOT_MENTIONED,AFFIRMED,omission
+IU_4,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_4,irrelevant,pneumonia,AFFIRMED,,ungrounded_affirmation
+IU_4,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_4,sufficient,airspace opacity,NOT_MENTIONED,AFFIRMED,omission
+IU_4,sufficient,emphysema,NOT_MENTIONED,AFFIRMED,omission
+IU_4,sufficient,interstitial abnormality,NOT_MENTIONED,AFFIRMED,omission
+IU_4,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_4,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_5,conflicting,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_5,conflicting,hyperinflation,NOT_MENTIONED,AFFIRMED,omission
+IU_5,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_5,conflicting,pleural thickening,NOT_MENTIONED,AFFIRMED,omission
+IU_5,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_5,incomplete,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_5,incomplete,hyperinflation,NOT_MENTIONED,AFFIRMED,omission
+IU_5,incomplete,pleural effusion,NEGATED,NEGATED,supported
+IU_5,incomplete,pleural thickening,NOT_MENTIONED,AFFIRMED,omission
+IU_5,incomplete,pneumothorax,NEGATED,NEGATED,supported
+IU_5,insufficient,consolidation,NEGATED,NEGATED,supported
+IU_5,insufficient,hyperinflation,NOT_MENTIONED,AFFIRMED,omission
+IU_5,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_5,insufficient,pleural thickening,NOT_MENTIONED,AFFIRMED,omission
+IU_5,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_5,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_5,irrelevant,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_5,irrelevant,hyperinflation,NOT_MENTIONED,AFFIRMED,omission
+IU_5,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_5,irrelevant,pleural thickening,NOT_MENTIONED,AFFIRMED,omission
+IU_5,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_5,sufficient,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_5,sufficient,hyperinflation,NOT_MENTIONED,AFFIRMED,omission
+IU_5,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_5,sufficient,pleural thickening,NOT_MENTIONED,AFFIRMED,omission
+IU_5,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_6,conflicting,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_6,conflicting,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_6,conflicting,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_6,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_6,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_6,insufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_6,insufficient,consolidation,NEGATED,NEGATED,supported
+IU_6,insufficient,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_6,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_6,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_6,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_6,irrelevant,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_6,irrelevant,consolidation,NEGATED,NEGATED,supported
+IU_6,irrelevant,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_6,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_6,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_6,sufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_6,sufficient,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_6,sufficient,degenerative change,NOT_MENTIONED,AFFIRMED,omission
+IU_6,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_6,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_7,conflicting,atelectasis,NOT_MENTIONED,AFFIRMED,omission
+IU_7,conflicting,consolidation,NEGATED,NEGATED,supported
+IU_7,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_7,conflicting,pneumothorax,NEGATED,,extra_negation
+IU_7,conflicting,pulmonary edema,NEGATED,,extra_negation
+IU_7,insufficient,atelectasis,NOT_MENTIONED,AFFIRMED,omission
+IU_7,insufficient,consolidation,NEGATED,NEGATED,supported
+IU_7,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_7,insufficient,pneumothorax,NEGATED,,extra_negation
+IU_7,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_7,irrelevant,atelectasis,NOT_MENTIONED,AFFIRMED,omission
+IU_7,irrelevant,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_7,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_7,irrelevant,pneumothorax,NEGATED,,extra_negation
+IU_7,sufficient,atelectasis,NOT_MENTIONED,AFFIRMED,omission
+IU_7,sufficient,consolidation,NEGATED,NEGATED,supported
+IU_7,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_7,sufficient,pneumothorax,NEGATED,,extra_negation
+IU_8,conflicting,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_8,conflicting,pleural effusion,NEGATED,NEGATED,supported
+IU_8,conflicting,pneumonia,NOT_MENTIONED,NEGATED,omission
+IU_8,conflicting,pneumothorax,NEGATED,NEGATED,supported
+IU_8,incomplete,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_8,incomplete,consolidation,NEGATED,,extra_negation
+IU_8,incomplete,pleural effusion,NEGATED,NEGATED,supported
+IU_8,incomplete,pneumonia,NOT_MENTIONED,NEGATED,omission
+IU_8,incomplete,pneumothorax,NEGATED,NEGATED,supported
+IU_8,incomplete,pulmonary edema,NEGATED,,extra_negation
+IU_8,insufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_8,insufficient,consolidation,NEGATED,,extra_negation
+IU_8,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_8,insufficient,pneumonia,NOT_MENTIONED,NEGATED,omission
+IU_8,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_8,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_8,irrelevant,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_8,irrelevant,consolidation,NEGATED,,extra_negation
+IU_8,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_8,irrelevant,pneumonia,NOT_MENTIONED,NEGATED,omission
+IU_8,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_8,sufficient,airspace opacity,NOT_MENTIONED,NEGATED,omission
+IU_8,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_8,sufficient,pneumonia,NOT_MENTIONED,NEGATED,omission
+IU_8,sufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_9,incomplete,consolidation,NEGATED,NEGATED,supported
+IU_9,incomplete,granulomatous disease,NOT_MENTIONED,AFFIRMED,omission
+IU_9,incomplete,pleural effusion,NEGATED,NEGATED,supported
+IU_9,incomplete,pneumothorax,NEGATED,NEGATED,supported
+IU_9,insufficient,consolidation,NEGATED,NEGATED,supported
+IU_9,insufficient,granulomatous disease,NOT_MENTIONED,AFFIRMED,omission
+IU_9,insufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_9,insufficient,pneumothorax,NEGATED,NEGATED,supported
+IU_9,insufficient,pulmonary edema,NEGATED,,extra_negation
+IU_9,irrelevant,consolidation,NOT_MENTIONED,NEGATED,omission
+IU_9,irrelevant,granulomatous disease,NOT_MENTIONED,AFFIRMED,omission
+IU_9,irrelevant,pleural effusion,NEGATED,NEGATED,supported
+IU_9,irrelevant,pneumothorax,NEGATED,NEGATED,supported
+IU_9,sufficient,consolidation,NEGATED,NEGATED,supported
+IU_9,sufficient,granulomatous disease,NOT_MENTIONED,AFFIRMED,omission
+IU_9,sufficient,pleural effusion,NEGATED,NEGATED,supported
+IU_9,sufficient,pneumothorax,NEGATED,NEGATED,supported

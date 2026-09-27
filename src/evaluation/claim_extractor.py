@@ -1,329 +1,238 @@
+"""
+Extract generated-report claim candidates.
+
+This module extracts clinical-finding candidates from baseline
+generated reports using the same REFERENCE_PATTERNS vocabulary
+and polarity rules as the reference candidate extractor.
+
+It writes:
+
+    results/tables/generated_claim_candidates.csv
+
+It does NOT overwrite:
+
+    results/tables/extracted_claims.csv
+
+Conflict-target evaluation remains in claim_evaluator.py.
+That Phase 6 evaluator is condition-blind: it matches claims by
+(sample_id, finding) and ignores condition. That behavior is
+intentionally left unchanged. This extractor is condition-aware
+and keys generated claims by (sample_id, condition, finding).
+"""
+
 from pathlib import Path
+import sys
 
 import pandas as pd
-import yaml
 
+ROOT = Path(__file__).resolve().parents[2]
 
-CLAIMS_PATH = Path(
-    "results/tables/extracted_claims.csv"
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from src.evaluation.claim_patterns import (
+    extract_raw_claim_records,
+    strip_generated_report_body,
 )
 
-CONFLICT_PATH = Path(
-    "configs/conflict_cases.yaml"
-)
 
-ONTOLOGY_PATH = Path(
-    "configs/claim_ontology.yaml"
+GENERATION_PATH = Path(
+    "results/tables/baseline_generation_results.csv"
 )
 
 OUTPUT_PATH = Path(
-    "results/tables/conflict_claim_evaluation.csv"
+    "results/tables/generated_claim_candidates.csv"
+)
+
+# Historical Phase 6 artifact. Never overwrite this file.
+PHASE6_CLAIMS_PATH = Path(
+    "results/tables/extracted_claims.csv"
 )
 
 
-VALID_POLARITIES = {
-    "AFFIRMED",
-    "NEGATED",
-    "MENTIONED_UNCLEAR",
-}
-
-
-def load_approved_conflicts() -> list[dict]:
-    """Load only approved conflict cases."""
-
-    with CONFLICT_PATH.open(
-        "r",
-        encoding="utf-8",
-    ) as file:
-        data = yaml.safe_load(file)
-
-    conflicts = data.get("conflicts")
-
-    if not isinstance(conflicts, dict):
-        raise ValueError(
-            "Expected 'conflicts' to be a mapping."
-        )
-
-    approved_cases = []
-
-    for sample_id, case in conflicts.items():
-
-        if not case.get("approved", False):
-            continue
-
-        target = str(
-            case.get("target", "")
-        ).strip()
-
-        if not target:
-            raise ValueError(
-                f"Approved case {sample_id} has an empty target."
-            )
-
-        approved_cases.append(
-            {
-                "sample_id": str(sample_id),
-                "target": target,
-                "type": str(
-                    case.get("type", "")
-                ),
-                "conflicting_context": str(
-                    case.get("conflicting_context", "")
-                ),
-                "evidence_basis": str(
-                    case.get("evidence_basis", "")
-                ),
-            }
-        )
-
-    return approved_cases
-
-
-def load_ontology() -> dict:
-    """Load controlled target-to-extractor mappings."""
-
-    with ONTOLOGY_PATH.open(
-        "r",
-        encoding="utf-8",
-    ) as file:
-        data = yaml.safe_load(file)
-
-    mappings = data.get("finding_mappings")
-
-    if not isinstance(mappings, dict):
-        raise ValueError(
-            "Expected 'finding_mappings' to be a mapping."
-        )
-
-    return mappings
-
-
-def normalize_finding(
-    finding: str,
-) -> str:
-    """Normalize finding names."""
-
-    return (
-        str(finding)
-        .strip()
-        .lower()
-    )
-
-
-def resolve_extractor_finding(
-    target: str,
-    ontology: dict,
-) -> str:
-    """
-    Resolve a conflict target to the controlled
-    finding vocabulary used by the extractor.
-    """
-
-    target_normalized = normalize_finding(
-        target
-    )
-
-    mapping = ontology.get(
-        target_normalized
-    )
-
-    if mapping is None:
-        raise ValueError(
-            f"No ontology mapping found for target: "
-            f"{target}"
-        )
-
-    return normalize_finding(
-        mapping["extractor_finding"]
-    )
-
-
-def find_matching_claims(
-    sample_id: str,
-    extractor_finding: str,
-    claims_df: pd.DataFrame,
+def extract_generated_claim_candidates(
+    generation_df: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Find claims for one case and normalized finding."""
-
-    return claims_df[
-        (
-            claims_df["sample_id"].astype(str)
-            == sample_id
-        )
-        &
-        (
-            claims_df["finding"].map(
-                normalize_finding
-            )
-            == extractor_finding
-        )
-    ].copy()
-
-
-def evaluate_case(
-    case: dict,
-    ontology: dict,
-    claims_df: pd.DataFrame,
-) -> dict:
-    """Evaluate one approved conflict case."""
-
-    sample_id = case["sample_id"]
-    target = case["target"]
-
-    extractor_finding = (
-        resolve_extractor_finding(
-            target,
-            ontology,
-        )
-    )
-
-    matching_claims = find_matching_claims(
-        sample_id=sample_id,
-        extractor_finding=extractor_finding,
-        claims_df=claims_df,
-    )
-
-    if matching_claims.empty:
-        return {
-            "sample_id": sample_id,
-            "target": target,
-            "extractor_finding": extractor_finding,
-            "type": case["type"],
-            "conflicting_context": case[
-                "conflicting_context"
-            ],
-            "generated_polarity": "NOT_MENTIONED",
-            "evaluation": "NOT_MENTIONED",
-            "source_sentence": "",
-        }
-
-    polarities = [
-        str(polarity)
-        for polarity in matching_claims[
-            "polarity"
-        ].tolist()
-        if str(polarity) in VALID_POLARITIES
-    ]
-
-    if not polarities:
-        return {
-            "sample_id": sample_id,
-            "target": target,
-            "extractor_finding": extractor_finding,
-            "type": case["type"],
-            "conflicting_context": case[
-                "conflicting_context"
-            ],
-            "generated_polarity":
-                "MENTIONED_UNCLEAR",
-            "evaluation":
-                "MENTIONED_UNCLEAR",
-            "source_sentence": "",
-        }
-
-    unique_polarities = sorted(
-        set(polarities)
-    )
-
-    if len(unique_polarities) > 1:
-        generated_polarity = (
-            "MENTIONED_UNCLEAR"
-        )
-        evaluation = (
-            "MENTIONED_UNCLEAR"
-        )
-    else:
-        generated_polarity = (
-            unique_polarities[0]
-        )
-        evaluation = generated_polarity
-
-    sentences = sorted(
-        set(
-            matching_claims[
-                "source_sentence"
-            ]
-            .dropna()
-            .astype(str)
-            .tolist()
-        )
-    )
-
-    return {
-        "sample_id": sample_id,
-        "target": target,
-        "extractor_finding": extractor_finding,
-        "type": case["type"],
-        "conflicting_context": case[
-            "conflicting_context"
-        ],
-        "generated_polarity":
-            generated_polarity,
-        "evaluation": evaluation,
-        "source_sentence":
-            " | ".join(sentences),
-    }
-
-
-def main() -> None:
-
-    if not CLAIMS_PATH.exists():
-        raise FileNotFoundError(
-            f"Claims file not found: "
-            f"{CLAIMS_PATH}"
-        )
-
-    if not CONFLICT_PATH.exists():
-        raise FileNotFoundError(
-            f"Conflict configuration not found: "
-            f"{CONFLICT_PATH}"
-        )
-
-    if not ONTOLOGY_PATH.exists():
-        raise FileNotFoundError(
-            f"Ontology file not found: "
-            f"{ONTOLOGY_PATH}"
-        )
-
-    claims_df = pd.read_csv(
-        CLAIMS_PATH
-    )
+    """
+    Extract case-level generated claims for each
+    (sample_id, condition) generation record.
+    """
 
     required_columns = {
         "sample_id",
-        "finding",
-        "polarity",
-        "source_sentence",
+        "condition",
+        "generated_report",
     }
 
-    missing = (
-        required_columns
-        - set(claims_df.columns)
+    missing = required_columns - set(
+        generation_df.columns
     )
 
     if missing:
         raise ValueError(
-            f"Missing claim columns: "
+            "Missing generation columns: "
             f"{sorted(missing)}"
         )
 
-    approved_cases = (
-        load_approved_conflicts()
+    records = []
+
+    for _, row in generation_df.iterrows():
+
+        sample_id = str(row["sample_id"])
+        condition = str(row["condition"])
+
+        body = strip_generated_report_body(
+            row["generated_report"]
+        )
+
+        matches = extract_raw_claim_records(body)
+
+        if not matches:
+            continue
+
+        match_df = pd.DataFrame(matches)
+
+        match_df["sample_id"] = sample_id
+        match_df["condition"] = condition
+
+        # Collapse Findings / Impression repeats of the same
+        # finding and polarity within one generated report.
+        match_df = match_df.drop_duplicates(
+            subset=[
+                "sample_id",
+                "condition",
+                "finding",
+                "polarity",
+            ]
+        )
+
+        records.append(match_df)
+
+    if not records:
+
+        return pd.DataFrame(
+            columns=[
+                "sample_id",
+                "condition",
+                "finding",
+                "polarity",
+                "matched_pattern",
+                "source_sentence",
+            ]
+        )
+
+    combined = pd.concat(
+        records,
+        ignore_index=True,
     )
 
-    ontology = load_ontology()
+    collapsed_rows = []
 
-    results = [
-        evaluate_case(
-            case,
-            ontology,
-            claims_df,
+    grouped = combined.groupby(
+        ["sample_id", "condition", "finding"],
+        sort=False,
+    )
+
+    for (
+        sample_id,
+        condition,
+        finding,
+    ), group in grouped:
+
+        polarities = sorted(
+            set(
+                str(polarity)
+                for polarity in group["polarity"].tolist()
+            )
         )
-        for case in approved_cases
-    ]
 
-    output_df = pd.DataFrame(
-        results
+        if (
+            "AFFIRMED" in polarities
+            and "NEGATED" in polarities
+        ):
+            polarity = "MENTIONED_UNCLEAR"
+        elif len(polarities) == 1:
+            polarity = polarities[0]
+        else:
+            polarity = "MENTIONED_UNCLEAR"
+
+        sentences = sorted(
+            set(
+                group["source_sentence"]
+                .dropna()
+                .astype(str)
+                .tolist()
+            )
+        )
+
+        patterns = sorted(
+            set(
+                group["matched_pattern"]
+                .dropna()
+                .astype(str)
+                .tolist()
+            )
+        )
+
+        collapsed_rows.append(
+            {
+                "sample_id": sample_id,
+                "condition": condition,
+                "finding": finding,
+                "polarity": polarity,
+                "matched_pattern": " | ".join(patterns),
+                "source_sentence": " | ".join(sentences),
+            }
+        )
+
+    output = pd.DataFrame(collapsed_rows)
+
+    if output.empty:
+
+        return pd.DataFrame(
+            columns=[
+                "sample_id",
+                "condition",
+                "finding",
+                "polarity",
+                "matched_pattern",
+                "source_sentence",
+            ]
+        )
+
+    output = (
+        output
+        .sort_values(
+            [
+                "sample_id",
+                "condition",
+                "finding",
+            ]
+        )
+        .reset_index(drop=True)
+    )
+
+    return output
+
+
+def main() -> None:
+
+    if not GENERATION_PATH.exists():
+        raise FileNotFoundError(
+            f"Generation results not found: {GENERATION_PATH}"
+        )
+
+    if PHASE6_CLAIMS_PATH.exists():
+        phase6_mtime_before = (
+            PHASE6_CLAIMS_PATH.stat().st_mtime
+        )
+    else:
+        phase6_mtime_before = None
+
+    generation_df = pd.read_csv(GENERATION_PATH)
+
+    output = extract_generated_claim_candidates(
+        generation_df
     )
 
     OUTPUT_PATH.parent.mkdir(
@@ -331,49 +240,61 @@ def main() -> None:
         exist_ok=True,
     )
 
-    output_df.to_csv(
+    output.to_csv(
         OUTPUT_PATH,
         index=False,
     )
 
+    if PHASE6_CLAIMS_PATH.exists():
+        phase6_mtime_after = (
+            PHASE6_CLAIMS_PATH.stat().st_mtime
+        )
+
+        if (
+            phase6_mtime_before is not None
+            and phase6_mtime_after != phase6_mtime_before
+        ):
+            raise RuntimeError(
+                "extracted_claims.csv was modified. "
+                "Phase 7 must not overwrite that artifact."
+            )
+
     print("=" * 70)
-    print("CONFLICT CLAIM EVALUATION")
+    print("GENERATED CLAIM CANDIDATE EXTRACTION")
     print("=" * 70)
 
     print(
-        f"Approved conflict cases: "
-        f"{len(output_df)}"
+        f"Generation records: {len(generation_df)}"
     )
 
     print(
-        "\nEvaluation:"
+        f"Generated claim candidates: {len(output)}"
     )
 
     print(
-        output_df["evaluation"]
-        .value_counts()
-        .sort_index()
-        .to_string()
+        "\nPolarity counts:"
     )
 
-    print(
-        "\nCase-level results:"
-    )
-
-    print(
-        output_df[
-            [
-                "sample_id",
-                "target",
-                "extractor_finding",
-                "generated_polarity",
-                "evaluation",
-            ]
-        ].to_string(index=False)
-    )
+    if output.empty:
+        print("No generated claims found.")
+    else:
+        print(
+            output["polarity"]
+            .value_counts()
+            .to_string()
+        )
 
     print(
         f"\nOutput: {OUTPUT_PATH}"
+    )
+
+    print(
+        "\nPhase 6 extracted_claims.csv was not overwritten."
+    )
+
+    print(
+        "Conflict evaluation remains in claim_evaluator.py "
+        "and is condition-blind."
     )
 
 
