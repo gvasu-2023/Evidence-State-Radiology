@@ -1,0 +1,7 @@
+condition,case_count,predicted_state_distribution,gate_action_distribution,generate_count,qualify_count,qualify_or_abstain_count,discount_context_count,abstain_count,generation_rate,qualification_rate,context_discount_rate,abstention_rate,analyzer_alignment_rate
+overall,81,"{'sufficient': 26, 'irrelevant': 20, 'incomplete': 20, 'conflicting': 15}","{'generate': 26, 'discount_context': 20, 'qualify': 20, 'qualify_or_abstain': 15}",26,20,15,20,0,0.32098765432098764,0.43209876543209874,0.24691358024691357,0.0,0.6419753086419753
+sufficient,17,{'sufficient': 17},{'generate': 17},17,0,0,0,0,1.0,0.0,0.0,0.0,1.0
+incomplete,9,{'sufficient': 9},{'generate': 9},9,0,0,0,0,1.0,0.0,0.0,0.0,0.0
+irrelevant,20,{'irrelevant': 20},{'discount_context': 20},0,0,0,20,0,0.0,0.0,1.0,0.0,1.0
+conflicting,15,{'conflicting': 15},{'qualify_or_abstain': 15},0,0,15,0,0,0.0,1.0,0.0,0.0,1.0
+insufficient,20,{'incomplete': 20},{'qualify': 20},0,20,0,0,0,0.0,1.0,0.0,0.0,0.0

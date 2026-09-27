@@ -1,0 +1,81 @@
+scope,variable,test_type,n_pairs,baseline_to_gated_discordance_b,gated_to_baseline_discordance_c,statistic,p_value,test_status,notes
+overall_all_conditions,report_length_chars,wilcoxon,81,,,732.5,0.75136860486273,executed,Wilcoxon signed-rank test (mean diff=2.0494)
+overall_all_conditions,claim_count,wilcoxon,81,,,0.0,0.00013071321756993092,executed,Wilcoxon signed-rank test (mean diff=0.3704)
+overall_all_conditions,claim_count_per_report,wilcoxon,81,,,0.0,0.00013071321756993092,executed,Wilcoxon signed-rank test (mean diff=0.3704)
+overall_all_conditions,has_supported_claim,mcnemar,81,0.0,1.0,0.0,1.0,executed,"Exact binomial McNemar test (b=0, c=1)"
+overall_all_conditions,has_omission,mcnemar,81,2.0,0.0,0.0,0.5,executed,"Exact binomial McNemar test (b=2, c=0)"
+overall_all_conditions,has_extra_negation,mcnemar,81,0.0,10.0,0.0,0.001953125,executed,"Exact binomial McNemar test (b=0, c=10)"
+overall_all_conditions,has_ungrounded_affirmation,mcnemar,81,1.0,0.0,0.0,1.0,executed,"Exact binomial McNemar test (b=1, c=0)"
+overall_all_conditions,has_unsupported_affirmation,mcnemar,81,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+overall_all_conditions,has_contradiction,mcnemar,81,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+overall_all_conditions,has_unclear_claim,mcnemar,81,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+non_irrelevant_conditions,report_length_chars,wilcoxon,61,,,0.0,9.759819326488024e-08,executed,Wilcoxon signed-rank test (mean diff=24.7541)
+non_irrelevant_conditions,claim_count,wilcoxon,61,,,,,not_applicable,zero variation across non-irrelevant conditions
+non_irrelevant_conditions,claim_count_per_report,wilcoxon,61,,,,,not_applicable,zero variation across non-irrelevant conditions
+non_irrelevant_conditions,has_supported_claim,mcnemar,61,0.0,0.0,,,not_applicable,"zero discordant pairs across non-irrelevant conditions (b=0, c=0)"
+non_irrelevant_conditions,has_omission,mcnemar,61,0.0,0.0,,,not_applicable,"zero discordant pairs across non-irrelevant conditions (b=0, c=0)"
+non_irrelevant_conditions,has_extra_negation,mcnemar,61,0.0,0.0,,,not_applicable,"zero discordant pairs across non-irrelevant conditions (b=0, c=0)"
+non_irrelevant_conditions,has_ungrounded_affirmation,mcnemar,61,0.0,0.0,,,not_applicable,"zero discordant pairs across non-irrelevant conditions (b=0, c=0)"
+non_irrelevant_conditions,has_unsupported_affirmation,mcnemar,61,0.0,0.0,,,not_applicable,"zero discordant pairs across non-irrelevant conditions (b=0, c=0)"
+non_irrelevant_conditions,has_contradiction,mcnemar,61,0.0,0.0,,,not_applicable,"zero discordant pairs across non-irrelevant conditions (b=0, c=0)"
+non_irrelevant_conditions,has_unclear_claim,mcnemar,61,0.0,0.0,,,not_applicable,"zero discordant pairs across non-irrelevant conditions (b=0, c=0)"
+irrelevant_context_discount,report_length_chars,wilcoxon,20,,,2.5,0.00012975033435375704,executed,Wilcoxon signed-rank test (mean diff=-67.2000)
+irrelevant_context_discount,claim_count,wilcoxon,20,,,0.0,0.00013071321756993092,executed,Wilcoxon signed-rank test (mean diff=1.5000)
+irrelevant_context_discount,claim_count_per_report,wilcoxon,20,,,0.0,0.00013071321756993092,executed,Wilcoxon signed-rank test (mean diff=1.5000)
+irrelevant_context_discount,has_supported_claim,mcnemar,20,0.0,1.0,0.0,1.0,executed,"Exact binomial McNemar test (b=0, c=1)"
+irrelevant_context_discount,has_omission,mcnemar,20,2.0,0.0,0.0,0.5,executed,"Exact binomial McNemar test (b=2, c=0)"
+irrelevant_context_discount,has_extra_negation,mcnemar,20,0.0,10.0,0.0,0.001953125,executed,"Exact binomial McNemar test (b=0, c=10)"
+irrelevant_context_discount,has_ungrounded_affirmation,mcnemar,20,1.0,0.0,0.0,1.0,executed,"Exact binomial McNemar test (b=1, c=0)"
+irrelevant_context_discount,has_unsupported_affirmation,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+irrelevant_context_discount,has_contradiction,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+irrelevant_context_discount,has_unclear_claim,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+sufficient,report_length_chars,wilcoxon,17,,,,,not_applicable,zero variation in paired differences
+sufficient,claim_count,wilcoxon,17,,,,,not_applicable,zero variation in paired differences
+sufficient,claim_count_per_report,wilcoxon,17,,,,,not_applicable,zero variation in paired differences
+sufficient,has_supported_claim,mcnemar,17,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+sufficient,has_omission,mcnemar,17,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+sufficient,has_extra_negation,mcnemar,17,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+sufficient,has_ungrounded_affirmation,mcnemar,17,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+sufficient,has_unsupported_affirmation,mcnemar,17,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+sufficient,has_contradiction,mcnemar,17,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+sufficient,has_unclear_claim,mcnemar,17,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+incomplete,report_length_chars,wilcoxon,9,,,,,not_applicable,zero variation in paired differences
+incomplete,claim_count,wilcoxon,9,,,,,not_applicable,zero variation in paired differences
+incomplete,claim_count_per_report,wilcoxon,9,,,,,not_applicable,zero variation in paired differences
+incomplete,has_supported_claim,mcnemar,9,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+incomplete,has_omission,mcnemar,9,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+incomplete,has_extra_negation,mcnemar,9,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+incomplete,has_ungrounded_affirmation,mcnemar,9,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+incomplete,has_unsupported_affirmation,mcnemar,9,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+incomplete,has_contradiction,mcnemar,9,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+incomplete,has_unclear_claim,mcnemar,9,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+irrelevant,report_length_chars,wilcoxon,20,,,2.5,0.00012975033435375704,executed,Wilcoxon signed-rank test (mean diff=-67.2000)
+irrelevant,claim_count,wilcoxon,20,,,0.0,0.00013071321756993092,executed,Wilcoxon signed-rank test (mean diff=1.5000)
+irrelevant,claim_count_per_report,wilcoxon,20,,,0.0,0.00013071321756993092,executed,Wilcoxon signed-rank test (mean diff=1.5000)
+irrelevant,has_supported_claim,mcnemar,20,0.0,1.0,0.0,1.0,executed,"Exact binomial McNemar test (b=0, c=1)"
+irrelevant,has_omission,mcnemar,20,2.0,0.0,0.0,0.5,executed,"Exact binomial McNemar test (b=2, c=0)"
+irrelevant,has_extra_negation,mcnemar,20,0.0,10.0,0.0,0.001953125,executed,"Exact binomial McNemar test (b=0, c=10)"
+irrelevant,has_ungrounded_affirmation,mcnemar,20,1.0,0.0,0.0,1.0,executed,"Exact binomial McNemar test (b=1, c=0)"
+irrelevant,has_unsupported_affirmation,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+irrelevant,has_contradiction,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+irrelevant,has_unclear_claim,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+conflicting,report_length_chars,wilcoxon,15,,,,,not_applicable,zero variation in paired differences
+conflicting,claim_count,wilcoxon,15,,,,,not_applicable,zero variation in paired differences
+conflicting,claim_count_per_report,wilcoxon,15,,,,,not_applicable,zero variation in paired differences
+conflicting,has_supported_claim,mcnemar,15,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+conflicting,has_omission,mcnemar,15,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+conflicting,has_extra_negation,mcnemar,15,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+conflicting,has_ungrounded_affirmation,mcnemar,15,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+conflicting,has_unsupported_affirmation,mcnemar,15,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+conflicting,has_contradiction,mcnemar,15,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+conflicting,has_unclear_claim,mcnemar,15,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+insufficient,report_length_chars,wilcoxon,20,,,,,not_applicable,zero variation in paired differences
+insufficient,claim_count,wilcoxon,20,,,,,not_applicable,zero variation in paired differences
+insufficient,claim_count_per_report,wilcoxon,20,,,,,not_applicable,zero variation in paired differences
+insufficient,has_supported_claim,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+insufficient,has_omission,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+insufficient,has_extra_negation,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+insufficient,has_ungrounded_affirmation,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+insufficient,has_unsupported_affirmation,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+insufficient,has_contradiction,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"
+insufficient,has_unclear_claim,mcnemar,20,0.0,0.0,,,not_applicable,"zero discordant pairs (b=0, c=0)"

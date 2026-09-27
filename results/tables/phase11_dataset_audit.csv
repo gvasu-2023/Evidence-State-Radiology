@@ -1,0 +1,14 @@
+check_id,check_name,status,expected,actual,details
+AUDIT_01,Input Files Existence,PASSED,All 3 files exist,"pert=True, base=True, gated=True",Verify raw perturbation and baseline/gated table availability
+AUDIT_02,Perturbation Record Count,PASSED,81,81,Verify 81 controlled perturbation records
+AUDIT_03,Baseline Record Count,PASSED,81,81,Verify 81 baseline generation records
+AUDIT_04,Gated Record Count,PASSED,81,81,Verify 81 gated generation records
+AUDIT_05,Perturbation Unique Pairs,PASSED,81 unique pairs,81 unique pairs,"No duplicate (sample_id, condition) in perturbations"
+AUDIT_06,Baseline Unique Pairs,PASSED,81 unique pairs,81 unique pairs,"No duplicate (sample_id, condition) in baseline results"
+AUDIT_07,Gated Unique Pairs,PASSED,81 unique pairs,81 unique pairs,"No duplicate (sample_id, experimental_condition) in gated results"
+AUDIT_08,Condition Record Counts,PASSED,"{'sufficient': 17, 'incomplete': 9, 'irrelevant': 20, 'conflicting': 15, 'insufficient': 20}","{'irrelevant': 20, 'insufficient': 20, 'sufficient': 17, 'conflicting': 15, 'incomplete': 9}",Verify condition counts match expected distribution
+AUDIT_09,Perturbation -> Baseline Pairing Alignment,PASSED,100% pairing match,Match,All perturbation records match baseline output keys
+AUDIT_10,Perturbation -> Gated Pairing Alignment,PASSED,100% pairing match,Match,All perturbation records match gated output keys
+AUDIT_11,Image Files Existence,PASSED,0 missing images,0 missing,Verify CXR image files exist on disk
+AUDIT_12,Gated Report Non-Emptiness,PASSED,0 empty reports,0 empty reports,All gated reports contain valid policy strings or report text
+AUDIT_13,Zero Redundant CPU Inference,PASSED,was_model_inference_run == False for all 81,0 true,All 81 gated records reuse exact baseline output without model re-runs
