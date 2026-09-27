@@ -1,0 +1,7 @@
+condition,n,generation_count,qualification_count,context_discount_count,conflict_warning_count,abstention_count,mean_baseline_report_length,mean_gated_report_length,mean_report_length_difference,mean_baseline_claim_count,mean_gated_claim_count,mean_claim_count_difference,model_inference_count,predicted_state_distribution,gate_action_distribution
+overall,81,26,0,20,15,20,303.22,246.02,-57.2,2.9,2.31,-0.59,0,"{'sufficient': 26, 'irrelevant': 20, 'insufficient': 20, 'conflicting': 15}","{'generate': 26, 'discount_context': 20, 'abstain': 20, 'qualify_or_abstain': 15}"
+sufficient,17,17,0,0,0,0,322.76,322.76,0.0,2.53,2.53,0.0,0,{'sufficient': 17},{'generate': 17}
+incomplete,9,9,0,0,0,0,308.0,308.0,0.0,3.0,3.0,0.0,0,{'sufficient': 9},{'generate': 9}
+irrelevant,20,0,0,20,0,0,320.15,252.95,-67.2,2.4,3.9,1.5,0,{'irrelevant': 20},{'discount_context': 20}
+conflicting,15,0,0,0,15,0,322.67,368.67,46.0,2.6,2.6,0.0,0,{'conflicting': 15},{'qualify_or_abstain': 15}
+insufficient,20,0,0,0,0,20,252.95,54.0,-198.95,3.9,0.0,-3.9,0,{'insufficient': 20},{'abstain': 20}
