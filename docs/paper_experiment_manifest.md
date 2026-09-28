@@ -187,3 +187,15 @@ To reproduce all tests and evaluation tables from a clean workspace environment:
   - `data/samples/` (ignored)
   - `results/baseline/` (ignored)
   - `results/qualitative/` (ignored)
+
+## 23. Phase 15 Evaluation Metrics Extension
+- **Module**: [`src/evaluation/run_phase15_evaluation.py`](file:///C:/Evidence-State-Radiology/src/evaluation/run_phase15_evaluation.py)
+- **Documented Specification**: [`docs/phase15_evaluation_metrics.md`](file:///C:/Evidence-State-Radiology/docs/phase15_evaluation_metrics.md)
+- **New Metrics Implemented**:
+  1. **RadGraph-F1** (`results/tables/radgraph_f1_results.csv`, `results/tables/radgraph_f1_summary.csv`): Entity and relation clinical content overlap (Overall Gated F1 = 0.1755, Baseline = 0.2431).
+  2. **CheXpert-F1** (`results/tables/chexpert_f1_results.csv`, `results/tables/chexpert_f1_summary.csv`): Clinical finding presence F1 across 14 Stanford CheXpert categories (Overall Gated F1 = 0.2457, Baseline = 0.2383).
+  3. **Unsupported Claim Rate** (`results/tables/unsupported_claim_rate.csv`, `results/tables/unsupported_claim_summary.csv`): Evaluated claim ontology rate (Overall Gated = 0.0000, Baseline = 0.0043).
+  4. **Risk-Coverage** (`results/tables/risk_coverage_points.csv`, `results/tables/risk_coverage_summary.csv`): Selective prediction operating points (Gated Coverage = 75.31%, Risk = 0.0000; Baseline Coverage = 100.0%, Risk = 0.0031).
+  5. **Abstention Metrics** (`results/tables/abstention_metrics.csv`): Gated abstention precision = 1.0000 (100.0%), abstention recall = 1.0000 (100.0% under `ref_insufficient`) and 0.5714 (under `ref_unsafe`).
+- **Deferred Metrics**: ECE and Brier score are explicitly deferred to future probabilistic work ([`docs/calibration_future_work.md`](file:///C:/Evidence-State-Radiology/docs/calibration_future_work.md)) to prevent fabricating confidence values on deterministic categorical outputs.
+

@@ -1,0 +1,7 @@
+condition,n_records,mean_baseline_chexpert_f1,mean_gated_chexpert_f1,mean_delta_chexpert_f1
+overall,81,0.2383,0.2457,0.0074
+sufficient,17,0.2784,0.2784,0.0
+incomplete,9,0.4074,0.4074,0.0
+irrelevant,20,0.27,0.225,-0.045
+conflicting,15,0.0667,0.0667,0.0
+insufficient,20,0.225,0.3,0.075

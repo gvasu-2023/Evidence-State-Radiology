@@ -1,0 +1,7 @@
+condition,n_records,mean_baseline_radgraph_precision,mean_baseline_radgraph_recall,mean_baseline_radgraph_f1,mean_gated_radgraph_precision,mean_gated_radgraph_recall,mean_gated_radgraph_f1,mean_delta_radgraph_f1
+overall,81,0.3599,0.3263,0.2431,0.265,0.237,0.1755,-0.0676
+sufficient,17,0.3211,0.2923,0.2236,0.3211,0.2923,0.2236,0.0
+incomplete,9,0.3625,0.3244,0.227,0.3625,0.3244,0.227,0.0
+irrelevant,20,0.3855,0.3625,0.2739,0.3775,0.3373,0.2423,-0.0316
+conflicting,15,0.3446,0.3034,0.2349,0.3461,0.3045,0.2353,0.0003
+insufficient,20,0.3775,0.3373,0.2423,0.0,0.0,0.0,-0.2423

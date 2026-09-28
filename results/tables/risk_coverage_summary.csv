@@ -1,0 +1,13 @@
+system,condition,total_cases,covered_cases,coverage,abstention_rate,risk_unsupported_claim_rate_on_covered
+baseline,overall,81,81,1.0,0.0,0.0031
+gated,overall,81,61,0.7531,0.2469,0.0
+baseline,sufficient,17,17,1.0,0.0,0.0
+gated,sufficient,17,17,1.0,0.0,0.0
+baseline,incomplete,9,9,1.0,0.0,0.0
+gated,incomplete,9,9,1.0,0.0,0.0
+baseline,irrelevant,20,20,1.0,0.0,0.0125
+gated,irrelevant,20,20,1.0,0.0,0.0
+baseline,conflicting,15,15,1.0,0.0,0.0
+gated,conflicting,15,15,1.0,0.0,0.0
+baseline,insufficient,20,20,1.0,0.0,0.0
+gated,insufficient,20,0,0.0,1.0,0.0

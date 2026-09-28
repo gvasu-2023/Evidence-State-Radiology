@@ -1,0 +1,7 @@
+condition,n_records,baseline_unsupported_claim_rate,gated_unsupported_claim_rate,delta_unsupported_claim_rate,baseline_supported_claim_rate,gated_supported_claim_rate,baseline_omission_rate,gated_omission_rate,baseline_extra_negation_rate,gated_extra_negation_rate,baseline_ungrounded_affirmation_rate,gated_ungrounded_affirmation_rate
+overall,81,0.0043,0.0,-0.0043,0.7234,0.7059,0.3562,0.4732,0.2723,0.2941,0.0043,0.0
+sufficient,17,0.0,0.0,0.0,0.7674,0.7674,0.4189,0.4189,0.2326,0.2326,0.0,0.0
+incomplete,9,0.0,0.0,0.0,0.7778,0.7778,0.3415,0.3415,0.2222,0.2222,0.0,0.0
+irrelevant,20,0.0208,0.0,-0.0208,0.7917,0.6026,0.4217,0.25,0.1875,0.3974,0.0208,0.0
+conflicting,15,0.0,0.0,0.0,0.7949,0.7949,0.381,0.381,0.2051,0.2051,0.0,0.0
+insufficient,20,0.0,0.0,0.0,0.6026,0.0,0.25,1.0,0.3974,0.0,0.0,0.0
