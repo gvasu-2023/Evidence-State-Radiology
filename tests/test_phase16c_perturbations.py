@@ -16,15 +16,20 @@ if str(ROOT) not in sys.path:
 
 from src.evidence_state.context_completeness import (
     assess_context_completeness,
-    detect_clinical_components,
 )
 from src.preprocessing.generate_phase16c_perturbations import (
+    _context_polarity,
+    _explicit_polarity,
+    _readable_evidence,
+    _donor_overlaps_target,
+    generate_conflict,
+    generate_evidentiary_incomplete,
     generate_phase16c_perturbations,
     VALID_CONDITIONS,
     SEED,
 )
 
-SELECTED_STUDIES_PATH = ROOT / "results/tables/phase16_selected_studies.csv"
+SELECTED_STUDIES_PATH = ROOT / "results/tables/phase16e_selected_studies.csv"
 PERTURBATIONS_TABLE_PATH = ROOT / "results/tables/phase16_perturbations.csv"
 PERTURBATIONS_PROCESSED_PATH = ROOT / "data/processed/iu_xray/phase16/phase16_perturbations.csv"
 PILOT_METADATA_PATH = ROOT / "data/processed/iu_xray/metadata/dataset.csv"
@@ -102,6 +107,7 @@ def test_8_irrelevant_source_in_selected_pool(perturbations_df, selected_df):
     irrel_df = perturbations_df[perturbations_df["condition"] == "irrelevant"]
     selected_uids = set(selected_df["uid"].astype(str))
     selected_contexts = set(selected_df["clinical_context"].astype(str))
+    selected_by_uid = selected_df.set_index(selected_df["uid"].astype(str))
 
     for _, r in irrel_df.iterrows():
         assert str(r["source_context_uid"]) in selected_uids, (
@@ -110,6 +116,10 @@ def test_8_irrelevant_source_in_selected_pool(perturbations_df, selected_df):
         assert str(r["perturbed_context"]) in selected_contexts, (
             f"Irrelevant context for UID {r['uid']} not in selected context pool"
         )
+        target = selected_by_uid.loc[str(r["uid"])]
+        assert not _donor_overlaps_target(
+            str(r["perturbed_context"]), str(target["findings"]), str(target["impression"])
+        ), f"Donor context overlaps target evidence for UID {r['uid']}"
 
 
 # Test 9: Reference findings are unchanged
@@ -161,7 +171,10 @@ def test_12_syntactic_incomplete_fails_completeness(perturbations_df):
 
 # Test 13: Evidentiary-incomplete contexts remain syntactically complete where possible
 def test_13_evidentiary_incomplete_passes_completeness(perturbations_df):
-    evi_df = perturbations_df[perturbations_df["condition"] == "evidentiary_incomplete"]
+    evi_df = perturbations_df[
+        (perturbations_df["condition"] == "evidentiary_incomplete")
+        & (perturbations_df["generation_status"] == "success")
+    ]
     for _, r in evi_df.iterrows():
         ctx = str(r["perturbed_context"])
         is_comp = assess_context_completeness(ctx)
@@ -170,19 +183,24 @@ def test_13_evidentiary_incomplete_passes_completeness(perturbations_df):
 
 # Test 14: Evidentiary-incomplete perturbations do not consist solely of demographic removal
 def test_14_evidentiary_incomplete_non_demographic(perturbations_df):
-    evi_df = perturbations_df[perturbations_df["condition"] == "evidentiary_incomplete"]
+    evi_df = perturbations_df[
+        (perturbations_df["condition"] == "evidentiary_incomplete")
+        & (perturbations_df["generation_status"] == "success")
+    ]
     for _, r in evi_df.iterrows():
         removed = str(r["removed_evidence_text"])
-        comp = detect_clinical_components(removed)
-        # Verify removed text is not solely demographic information
-        assert set(comp) != {"demographic_information"}, (
-            f"Evidentiary incomplete removal consisted solely of demographics for UID {r['uid']}: {removed}"
-        )
+        # The generator's readable-evidence check strips demographics and placeholders
+        # before confirming that the removed text contains clinical evidence. This also
+        # recognizes readable terms such as MVA that the older component parser omits.
+        assert _readable_evidence(removed), f"Removed evidence is not readable for UID {r['uid']}: {removed}"
 
 
 # Test 15: Conflicting perturbations contain documented conflict metadata
 def test_15_conflicting_metadata_documented(perturbations_df):
-    conf_df = perturbations_df[perturbations_df["condition"] == "conflicting"]
+    conf_df = perturbations_df[
+        (perturbations_df["condition"] == "conflicting")
+        & (perturbations_df["generation_status"] == "success")
+    ]
     for _, r in conf_df.iterrows():
         assert pd.notna(r["conflict_target"]) and str(r["conflict_target"]) != "", (
             f"Missing conflict_target for UID {r['uid']}"
@@ -236,3 +254,166 @@ def test_20_pilot_files_unchanged():
 
     pilot_pert_df = pd.read_csv(PILOT_PERTURBATIONS_PATH)
     assert len(pilot_pert_df) == 83 or len(pilot_pert_df) == 81 or len(pilot_pert_df) > 0, "Pilot perturbations empty"
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "No pleural effusion or pneumothorax",
+        "No visible pneumothorax",
+        "No evidence of pleural effusion or pneumothorax",
+    ],
+)
+def test_explicit_pneumothorax_negation_is_not_positive(text):
+    polarity, evidence = _explicit_polarity(text, "pneumothorax")
+    assert polarity == "NEGATED"
+    assert evidence
+
+
+def test_moderate_pneumothorax_is_positive():
+    polarity, _ = _explicit_polarity("Moderate left pneumothorax", "pneumothorax")
+    assert polarity == "AFFIRMED"
+
+
+def test_shortness_of_breath_generalizes_as_a_whole_concept():
+    perturbed, removed, method, status = generate_evidentiary_incomplete("Shortness of breath.")
+    assert status == "success"
+    assert removed.lower() == "shortness of breath"
+    assert method == "readable_concept_generalization"
+    assert perturbed != "Shortness."
+    assert assess_context_completeness(perturbed) is True
+
+
+@pytest.mark.parametrize("context", ["XXXX", "XXXX-year-old male"])
+def test_placeholder_or_demographic_only_context_has_no_evidentiary_perturbation(context):
+    perturbed, removed, method, status = generate_evidentiary_incomplete(context)
+    assert status == "generation_failed"
+    assert perturbed == ""
+    assert removed == ""
+    assert method == "no_readable_clinical_evidence"
+
+
+def test_chest_pain_does_not_fall_back_to_generic_clinical_evaluation():
+    perturbed, removed, _, status = generate_evidentiary_incomplete("Chest pain")
+    assert status == "generation_failed"
+    assert perturbed == ""
+    assert removed == ""
+
+
+def test_conflict_generation_requires_opposite_explicit_polarity():
+    references = [
+        ("No pleural effusion or pneumothorax", "", "NEGATED"),
+        ("Moderate left pneumothorax", "", "AFFIRMED"),
+    ]
+    for findings, impression, expected_reference_polarity in references:
+        context, target_label, source_text, status = generate_conflict(findings, impression)
+        assert status == "success"
+        target, _ = target_label.rsplit("_", 1)
+        reference_polarity, _ = _explicit_polarity(f"{findings} {impression}", target)
+        generated_polarity = _context_polarity(context, target)
+        assert reference_polarity == expected_reference_polarity
+        assert generated_polarity != reference_polarity
+        assert source_text
+
+
+def test_donor_screen_rejects_direct_evidence_overlap_and_contradiction():
+    assert _donor_overlaps_target(
+        "History of COPD.",
+        "The lungs are hyperexpanded.",
+        "Hyperexpanded lungs.",
+    )
+    assert _donor_overlaps_target(
+        "Status post chest tube with pneumothorax.",
+        "The lungs are clear.",
+        "No acute cardiopulmonary findings.",
+    )
+
+
+def test_generated_conflicts_have_opposite_reference_polarity(perturbations_df):
+    conflicts = perturbations_df[
+        (perturbations_df["condition"] == "conflicting")
+        & (perturbations_df["generation_status"] == "success")
+    ]
+    for row in conflicts.itertuples():
+        target, reference_suffix = row.conflict_target.rsplit("_", 1)
+        reference_polarity, _ = _explicit_polarity(
+            f"{row.findings} {row.impression}", target
+        )
+        context_polarity = _context_polarity(row.perturbed_context, target)
+        assert reference_polarity in {"AFFIRMED", "NEGATED"}
+        assert context_polarity in {"AFFIRMED", "NEGATED"}
+        assert context_polarity != reference_polarity
+        assert reference_suffix == ("presence" if reference_polarity == "AFFIRMED" else "absence")
+
+
+def test_phase16e_selection_has_no_failed_perturbations(perturbations_df):
+    failures = perturbations_df[perturbations_df["generation_status"] == "generation_failed"]
+    assert failures.empty
+
+    evidentiary = perturbations_df[
+        perturbations_df["condition"] == "evidentiary_incomplete"
+    ]
+    assert len(evidentiary) == 100
+    assert evidentiary["generation_status"].eq("success").all()
+    assert evidentiary["perturbed_context"].astype(str).str.strip().ne("").all()
+    assert not evidentiary["perturbed_context"].eq("Clinical evaluation.").any()
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "No pleural effusion or pneumothorax",
+        "No visible pneumothorax",
+        "No evidence of pleural effusion or pneumothorax",
+    ],
+)
+def test_explicit_pneumothorax_negation_is_not_positive(text):
+    polarity, evidence = _explicit_polarity(text, "pneumothorax")
+    assert polarity == "NEGATED"
+    assert evidence
+
+
+def test_moderate_pneumothorax_is_positive():
+    polarity, _ = _explicit_polarity("Moderate left pneumothorax", "pneumothorax")
+    assert polarity == "AFFIRMED"
+
+
+def test_shortness_of_breath_generalizes_as_a_whole_concept():
+    perturbed, removed, method, status = generate_evidentiary_incomplete("Shortness of breath.")
+    assert status == "success"
+    assert removed.lower() == "shortness of breath"
+    assert method == "readable_concept_generalization"
+    assert perturbed != "Shortness."
+    assert assess_context_completeness(perturbed) is True
+
+
+@pytest.mark.parametrize("context", ["XXXX", "XXXX-year-old male"])
+def test_placeholder_or_demographic_only_context_has_no_evidentiary_perturbation(context):
+    perturbed, removed, method, status = generate_evidentiary_incomplete(context)
+    assert status == "generation_failed"
+    assert perturbed == ""
+    assert removed == ""
+    assert method == "no_readable_clinical_evidence"
+
+
+def test_chest_pain_does_not_fall_back_to_generic_clinical_evaluation():
+    perturbed, removed, _, status = generate_evidentiary_incomplete("Chest pain")
+    assert status == "generation_failed"
+    assert perturbed == ""
+    assert removed == ""
+
+
+def test_conflict_generation_requires_opposite_explicit_polarity():
+    references = [
+        ("No pleural effusion or pneumothorax", "", "NEGATED"),
+        ("Moderate left pneumothorax", "", "AFFIRMED"),
+    ]
+    for findings, impression, expected_reference_polarity in references:
+        context, target_label, source_text, status = generate_conflict(findings, impression)
+        assert status == "success"
+        target, _ = target_label.rsplit("_", 1)
+        reference_polarity, _ = _explicit_polarity(f"{findings} {impression}", target)
+        generated_polarity = _context_polarity(context, target)
+        assert reference_polarity == expected_reference_polarity
+        assert generated_polarity != reference_polarity
+        assert source_text

@@ -46,12 +46,12 @@ Every underlying study generates exactly six controlled experimental perturbatio
 ### 4.1 Irrelevant Context Construction (`irrelevant`)
 - **Method**: Cross-case clinical context assignment.
 - **Rule**: Each study $A_i$ receives the original clinical context of study $A_j$ where $i \neq j$.
-- **Implementation**: A deterministic derangement (permutation with zero fixed points) is generated using `random.Random(SEED=20260928)` over the 100 UIDs sorted by integer value.
+- **Implementation**: A deterministic one-to-one donor assignment uses seed `20260928` and screens donor contexts against target reference evidence using normalized clinical concepts. Self-donors and obvious overlaps or contradictions are excluded. If no screened assignment is available, the slot is marked `generation_failed` with an empty context.
 - **Metadata Recorded**: `source_context_uid`, `source_context_sample_id`.
 
 ### 4.2 Conflicting Context Construction (`conflicting`)
 - **Method**: Conservative evidence-grounded contradiction.
-- **Rule**: The clinical context is rewritten to contradict explicit evidence present in the study's reference `findings` or `impression` (e.g., asserting acute pneumothorax when findings report no pneumothorax, or vice versa; asserting clear lungs when consolidation is present).
+- **Rule**: The clinical context is rewritten only when a normalized finding has unambiguous explicit polarity in reference `findings` or `impression`. The generated context is checked to have the opposite polarity. Ambiguous, uncertain, or unsupported targets fail closed; no generic fallback contradiction is used.
 - **Metadata Recorded**: `conflict_target`, `conflict_method`, `conflict_source_text`.
 
 ### 4.3 Insufficient Context Construction (`insufficient`)
@@ -71,10 +71,10 @@ Every underlying study generates exactly six controlled experimental perturbatio
 
 ## 6. Validation Suite & Quality Checks
 
-The implementation is verified by 20 dedicated tests in `tests/test_phase16c_perturbations.py`:
+The implementation is verified by 32 dedicated tests in `tests/test_phase16c_perturbations.py`:
 1. Exactly 100 unique UIDs represented.
 2. Exactly 1 record per `(uid, condition)` pair.
-3. Total record count equals 600.
+3. Total slot count equals 600; unavailable perturbations remain explicit failed slots rather than fabricated contexts.
 4. Zero duplicate `(uid, condition)` keys.
 5. `sufficient` contexts equal `original_context`.
 6. `insufficient` contexts are empty strings (`""`).
@@ -85,8 +85,8 @@ The implementation is verified by 20 dedicated tests in `tests/test_phase16c_per
 11. Image path references remain identical.
 12. `syntactic_incomplete` contexts evaluate as incomplete (`is_complete == False`).
 13. `evidentiary_incomplete` contexts evaluate as complete (`is_complete == True`).
-14. `evidentiary_incomplete` removals are non-demographic.
-15. `conflicting` records contain valid conflict metadata.
+14. `evidentiary_incomplete` removals contain readable clinical evidence, not only demographics or placeholders.
+15. Successful `conflicting` records have opposite, explicit reference/context polarity.
 16. All 6 condition names are valid.
 17. No selected UID overlaps with the 20 pilot studies.
 18. Generation is deterministic with seed `20260928`.
@@ -97,11 +97,14 @@ The implementation is verified by 20 dedicated tests in `tests/test_phase16c_per
 
 ## 7. Known Generation Results & Limitations
 
-### Audit Results
+### Current Generator Results
 - **Selected Studies**: 100 underlying IU-Xray studies
-- **Generated Records**: 600 (100 studies $\times$ 6 conditions)
-- **Successful Generation Rate**: 100% (600 / 600 records `generation_status == "success"`)
-- **Complete Six-State Studies**: 100 / 100
+- **Generated Slots**: 600 (100 studies $\times$ 6 conditions)
+- **Valid Perturbations**: 586
+- **Explicit Generation Failures**: 14 evidentiary-incomplete slots; their perturbed contexts are empty and `generation_status == "generation_failed"`.
+- **Complete Six-State Studies**: 86 / 100
+- **Conflicting Perturbations**: 100 / 100 have explicit opposite reference/context polarity.
+- **Quality Audit**: [`docs/phase16c_quality_audit.md`](phase16c_quality_audit.md); machine-readable counts are in [`results/tables/phase16c_quality_audit.csv`](../results/tables/phase16c_quality_audit.csv).
 
 ### Scope Characterization
 The perturbations generated under this protocol are **controlled experimental perturbations** designed for standardized benchmark evaluation of medical VLM robustness. They do not claim to capture all nuances of real-world clinical documentation or human physician workflow variability.

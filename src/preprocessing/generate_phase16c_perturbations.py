@@ -1,8 +1,8 @@
 """
 Phase 16C: Controlled Six-State Perturbation Generation for Expanded IU-Xray Benchmark.
 
-Generates exactly six controlled evidence-state perturbation records for each of the 100
-underlying IU-Xray studies selected in Phase 16B:
+Generates six controlled evidence-state perturbation slots for each of the 100
+underlying IU-Xray studies selected in Phase 16E:
 
     1. sufficient
     2. syntactic_incomplete
@@ -11,7 +11,8 @@ underlying IU-Xray studies selected in Phase 16B:
     5. conflicting
     6. insufficient
 
-Target output: 100 x 6 = 600 total records.
+Target output: 100 x 6 = 600 total slots. A slot without a defensible perturbation
+is retained with `generation_status=generation_failed` and an empty perturbed context.
 
 Core Scientific Principles:
     - Modifies ONLY the clinical-context condition.
@@ -26,6 +27,7 @@ Outputs:
 import random
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 from typing import Dict, List, Tuple, Any
 
@@ -37,10 +39,13 @@ if str(ROOT) not in sys.path:
 
 from src.evidence_state.context_completeness import (
     assess_context_completeness,
-    detect_clinical_components,
+    HISTORY_KEYWORDS,
+    PROCEDURE_KEYWORDS,
+    SYMPTOM_KEYWORDS,
 )
+from src.evaluation.claim_patterns import REFERENCE_PATTERNS, split_sentences
 
-SELECTED_STUDIES_PATH = ROOT / "results/tables/phase16_selected_studies.csv"
+SELECTED_STUDIES_PATH = ROOT / "results/tables/phase16e_selected_studies.csv"
 OUTPUT_TABLE_PATH = ROOT / "results/tables/phase16_perturbations.csv"
 OUTPUT_PROCESSED_DIR = ROOT / "data/processed/iu_xray/phase16"
 OUTPUT_PROCESSED_CSV = OUTPUT_PROCESSED_DIR / "phase16_perturbations.csv"
@@ -56,6 +61,63 @@ VALID_CONDITIONS = [
     "insufficient",
 ]
 
+PLACEHOLDER_PATTERN = re.compile(r"\b[xX]{2,}\b")
+DEMOGRAPHIC_PATTERN = re.compile(
+    r"\b(?:xxxx|\d+)[ -]?year[ -]?old(?:\s+(?:male|female))?\b"
+    r"|\b(?:male|female)\b|\bpatient\b",
+    re.IGNORECASE,
+)
+
+CONFLICT_TARGETS = {
+    "pneumothorax": {
+        "aliases": REFERENCE_PATTERNS["pneumothorax"],
+        "positive_context": "The patient has a pneumothorax.",
+        "negative_context": "No pneumothorax is suspected.",
+    },
+    "pleural_effusion": {
+        "aliases": REFERENCE_PATTERNS["pleural effusion"],
+        "positive_context": "The patient has a pleural effusion.",
+        "negative_context": "No pleural effusion is suspected.",
+    },
+    "cardiomegaly": {
+        "aliases": REFERENCE_PATTERNS["cardiomegaly"] + [
+            "enlarged heart", "enlarged cardiac silhouette", "heart size is enlarged",
+        ],
+        "positive_context": "Cardiomegaly is present.",
+        "negative_context": "No cardiomegaly is reported.",
+    },
+    "consolidation": {
+        "aliases": REFERENCE_PATTERNS["consolidation"],
+        "positive_context": "Focal consolidation is present.",
+        "negative_context": "No focal consolidation is present.",
+    },
+    "pneumonia": {
+        "aliases": REFERENCE_PATTERNS["pneumonia"],
+        "positive_context": "The patient has pneumonia.",
+        "negative_context": "No pneumonia is present.",
+    },
+}
+
+UNCERTAINTY_CUES = (
+    "possible ", "possibly ", "questionable ", "cannot exclude", "may represent",
+    "could represent", "suggestive of", "suspected ", "versus ",
+)
+
+DONOR_OVERLAP_VOCABULARY = {
+    "pneumothorax": ("pneumothorax", "pneumothoraces"),
+    "pleural_effusion": ("pleural effusion", "pleural effusions"),
+    "cardiomegaly": (
+        "cardiomegaly", "enlarged heart", "enlarged cardiac silhouette",
+        "cardiac silhouette is enlarged", "heart size appears enlarged",
+    ),
+    "consolidation": ("consolidation", "infiltrate", "infiltrates", "pneumonia"),
+    "hyperinflation": ("hyperinflated", "hyperinflation", "hyperexpanded", "copd", "emphysema"),
+    "malignancy": ("cancer", "carcinoma", "metastatic", "malignancy", "tumor"),
+    "fracture": ("fracture", "fractures"),
+    "pulmonary_edema": ("pulmonary edema", "edema"),
+    "fibrosis": ("fibrosis", "fibrotic"),
+}
+
 
 def generate_derangement(n: int, seed: int = SEED) -> List[int]:
     """
@@ -69,6 +131,73 @@ def generate_derangement(n: int, seed: int = SEED) -> List[int]:
         rng.shuffle(perm)
         if all(perm[i] != i for i in range(n)):
             return perm
+
+
+def _normalized_clinical_concepts(text: str) -> set[str]:
+    text_lower = str(text).lower()
+    concepts = set()
+    for concept, aliases in DONOR_OVERLAP_VOCABULARY.items():
+        if any(re.search(rf"(?<!\w){re.escape(alias)}(?!\w)", text_lower) for alias in aliases):
+            concepts.add(concept)
+    return concepts
+
+
+def _donor_overlaps_target(donor_context: str, findings: str, impression: str) -> bool:
+    donor_concepts = _normalized_clinical_concepts(donor_context)
+    reference = f"{findings} {impression}"
+    reference_concepts = _normalized_clinical_concepts(reference)
+    if donor_concepts & reference_concepts:
+        return True
+    if donor_concepts and re.search(
+        r"\b(?:no acute (?:cardiopulmonary|pulmonary|intrathoracic)|without acute (?:cardiopulmonary|pulmonary))\b",
+        reference,
+        re.IGNORECASE,
+    ):
+        return True
+    return False
+
+
+def generate_irrelevant_assignment(selected_df: pd.DataFrame, seed: int = SEED) -> Dict[int, int]:
+    """Find a deterministic one-to-one donor assignment with no obvious evidence overlap."""
+    rows = list(selected_df.iterrows())
+    preferences: Dict[int, List[int]] = {}
+    for target_index, target_row in rows:
+        target_uid = int(target_row["uid"])
+        candidates = []
+        for donor_index, donor_row in rows:
+            if donor_index == target_index:
+                continue
+            if _donor_overlaps_target(
+                str(donor_row["clinical_context"]),
+                str(target_row["findings"]),
+                str(target_row["impression"]),
+            ):
+                continue
+            candidates.append(donor_index)
+        random.Random(seed + target_uid).shuffle(candidates)
+        preferences[target_index] = candidates
+
+    donor_to_target: Dict[int, int] = {}
+
+    def assign(target_index: int, seen_donors: set[int]) -> bool:
+        for donor_index in preferences[target_index]:
+            if donor_index in seen_donors:
+                continue
+            seen_donors.add(donor_index)
+            previous = donor_to_target.get(donor_index)
+            if previous is None or assign(previous, seen_donors):
+                donor_to_target[donor_index] = target_index
+                return True
+        return False
+
+    target_order = sorted(
+        preferences,
+        key=lambda idx: (len(preferences[idx]), int(selected_df.iloc[idx]["uid"])),
+    )
+    for target_index in target_order:
+        if not assign(target_index, set()):
+            break
+    return {target_index: donor_index for donor_index, target_index in donor_to_target.items()}
 
 
 def generate_syntactic_incomplete(context: str) -> Tuple[str, str, str]:
@@ -117,6 +246,48 @@ def generate_syntactic_incomplete(context: str) -> Tuple[str, str, str]:
     return candidate, "syntactic_incomplete_generation_failed", "generation_failed"
 
 
+def _readable_evidence(text: str) -> bool:
+    """Return True only when text contains readable, non-demographic clinical evidence."""
+    cleaned = DEMOGRAPHIC_PATTERN.sub(" ", str(text))
+    cleaned = PLACEHOLDER_PATTERN.sub(" ", cleaned)
+    cleaned = re.sub(r"\b(?:history of|hx of)\b", " ", cleaned, flags=re.I)
+    cleaned = re.sub(r"[^a-zA-Z]+", " ", cleaned).lower().strip()
+    if not cleaned or cleaned in {"history of", "hx of", "history", "known", "prior"}:
+        return False
+
+    meaningful_keywords = [
+        keyword for keyword in (SYMPTOM_KEYWORDS + HISTORY_KEYWORDS + PROCEDURE_KEYWORDS)
+        if keyword not in {"history of", "hx of", "prior", "known", "patient"}
+    ]
+    if any(keyword in cleaned for keyword in meaningful_keywords):
+        return True
+
+    extra_evidence_terms = (
+        "trauma", "mva", "troponin", "lymphadenopathy", "adenopathy",
+        "nodule", "nodules", "rales", "breath sounds", "oxygen",
+        "desaturation", "hypoxia", "positive ppd", "tuberculosis",
+        "infection", "hernia", "transplant", "malignancy", "metastatic",
+        "carcinoma", "hemoptysis", "wheezing", "syncope", "collapse",
+        "cardiac arrest", "home oxygen", "chest tube", "pneumothorax",
+        "pleural effusion", "congestion", "weakness", "emesis",
+        "pneumonia", "dvt", "sob", "copd", "sarcoidosis", "smoking",
+        "not feeling well", "difficulty breathing", "breathing", "blood pressure",
+        "chest pressure", "aml", "bmt workup", "workup", "lymphadenopathy",
+        "bronchitis", "infection", "fever", "cough", "edema", "asthma",
+        "altered mental status", "bone marrow transplant", "kidney transplant",
+        "mental status changes", "flulike symptoms", "placement",
+        "hiv", "infiltrate", "infiltrates",
+    )
+    return any(term in cleaned for term in extra_evidence_terms)
+
+
+def _remove_placeholders(text: str) -> str:
+    text = DEMOGRAPHIC_PATTERN.sub(" ", str(text))
+    text = PLACEHOLDER_PATTERN.sub(" ", text)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip(" ,;:-")
+
+
 def generate_evidentiary_incomplete(context: str) -> Tuple[str, str, str, str]:
     """
     Generates an evidentiary incomplete clinical context by removing diagnostic/clinical evidence.
@@ -124,96 +295,123 @@ def generate_evidentiary_incomplete(context: str) -> Tuple[str, str, str, str]:
     """
     ctx = str(context).strip()
     ctx_clean = ctx.rstrip(" .?!")
+    if not _readable_evidence(ctx_clean):
+        return "", "", "no_readable_clinical_evidence", "generation_failed"
 
-    def is_demographic_only(text: str) -> bool:
-        comp = detect_clinical_components(text)
-        return set(comp) == {"demographic_information"}
-
-    # 1. Multi-sentence contexts
-    if "." in ctx_clean:
-        sentences = [s.strip() for s in ctx_clean.split(".") if s.strip()]
-        if len(sentences) >= 2:
-            for i in range(len(sentences)):
-                removed = sentences[i]
-                if not is_demographic_only(removed):
-                    remaining_parts = sentences[:i] + sentences[i + 1 :]
-                    remaining = ". ".join(remaining_parts).strip()
-                    if not remaining.endswith("."):
-                        remaining += "."
-                    if assess_context_completeness(remaining) and not is_demographic_only(remaining):
-                        return remaining, removed, "sentence_clinical_removal", "success"
-
-    # 2. Delimiters (semicolon, comma, and, &)
-    delims = [";", ",", " and ", " & "]
-    for delim in delims:
-        if delim in ctx_clean:
-            parts = [p.strip() for p in ctx_clean.split(delim) if p.strip()]
-            if len(parts) >= 2:
-                for i in range(len(parts)):
-                    part_removed = parts[i]
-                    if not is_demographic_only(part_removed):
-                        remaining_parts = parts[:i] + parts[i + 1 :]
-                        remaining = ", ".join(remaining_parts).strip()
-                        if not remaining.endswith("."):
-                            remaining += "."
-                        if assess_context_completeness(remaining):
-                            if is_demographic_only(remaining):
-                                remaining = remaining.rstrip(".") + ", clinical evaluation."
-                            return remaining, part_removed, "clause_clinical_removal", "success"
-
-    # 3. Prepositional phrases
-    prep_patterns = [
-        (r"\bwith\s+(history\s+of\s+)?(.+)$", "with_phrase"),
-        (r"\bstatus\s+post\s+(.+)$", "status_post_phrase"),
-        (r"\bof\s+(.+)$", "of_phrase"),
-        (r"\bfor\s+(.+)$", "for_phrase"),
-        (r"\bprior\s+to\s+(.+)$", "prior_to_phrase"),
+    # Prefer removal of a whole readable clause while retaining other readable evidence.
+    parts = [
+        p.strip()
+        for p in re.split(r"\s*(?:[.;]|,|\band\b|&|\bwith\b)\s*", ctx_clean, flags=re.I)
+        if p.strip()
     ]
-    for pattern, p_name in prep_patterns:
-        m = re.search(pattern, ctx_clean, re.IGNORECASE)
-        if m:
-            removed_target = m.group(0).strip()
-            prefix = ctx_clean[: m.start()].strip()
-            if prefix and not is_demographic_only(prefix):
-                remaining = prefix + "."
-                if assess_context_completeness(remaining):
-                    return remaining, removed_target, f"prepositional_phrase_removal_{p_name}", "success"
-            elif prefix:
-                remaining = prefix + ", clinical evaluation."
-                if assess_context_completeness(remaining):
-                    return remaining, removed_target, "prepositional_phrase_removal_with_general_indication", "success"
+    for index, removed in enumerate(parts):
+        if not _readable_evidence(removed):
+            continue
+        remaining_parts = parts[:index] + parts[index + 1 :]
+        remaining = ", ".join(remaining_parts).strip(" ,;:-")
+        if remaining and _readable_evidence(remaining):
+            if not remaining.endswith((".", "?", "!")):
+                remaining += "."
+            if assess_context_completeness(remaining):
+                return remaining, removed, "clause_clinical_removal", "success"
 
-    # 4. Term generalizations
-    specific_clinical_removals = [
-        ("colon cancer", "Cancer evaluation."),
-        ("testis cancer", "Cancer evaluation."),
-        ("testicular cancer", "Cancer evaluation."),
-        ("testicular carcinoma", "Carcinoma evaluation."),
-        ("bone marrow transplant", "Preprocedure evaluation."),
-        ("kidney transplant", "Transplant evaluation."),
-        ("altered mental status", "Neurological evaluation."),
-        ("positive ppd", "Infectious disease evaluation."),
-        ("ppd", "Screening evaluation."),
-        ("cardiac arrest", "Post-resuscitation evaluation."),
-        ("dyspnea", "Respiratory evaluation."),
-        ("sob", "Respiratory evaluation."),
-        ("hemoptysis", "Respiratory evaluation."),
-        ("pneumonia", "Respiratory evaluation."),
-        ("copd", "Respiratory evaluation."),
-        ("dvt", "Vascular evaluation."),
-        ("dizziness", "Clinical evaluation."),
-        ("pain", "Clinical evaluation."),
-    ]
+    # A single readable concept may be generalized to a complete, less-specific indication.
+    # The generic "Clinical evaluation." fallback is not a clinical indication and is
+    # explicitly rejected. Placeholder-only text never reaches this branch because of
+    # the evidence check above.
+    generalizations = (
+        (r"\b(?:shortness\s+of\s+breath|dyspnea|sob|difficulty breathing|breathing)\b", "Respiratory evaluation."),
+        (r"\b(?:chest\s+)?(?:pain|pressure)\b", "Clinical evaluation."),
+        (r"\b(?:copd|pneumonia|hemoptysis|cough|wheezing|rales|congestion|sarcoidosis|bronchitis)\b", "Respiratory evaluation."),
+        (r"\b(?:metastatic\s+)?(?:colon|testis|testicular)\s+(?:cancer|carcinoma)\b", "Cancer evaluation."),
+        (r"\b(?:cancer|carcinoma)\b", "Cancer evaluation."),
+        (r"\b(?:kidney transplant|bone marrow transplant|transplant)\b", "Preprocedure evaluation."),
+        (r"\b(?:positive ppd|ppd|tuberculosis)\b", "Infectious disease evaluation."),
+        (r"\b(?:cardiac arrest|altered mental status|syncope|dizziness)\b", "Clinical evaluation."),
+        (r"\b(?:dvt|troponin|hypoxia|desaturation|oxygen saturation|mva|trauma|infection|smoking|blood pressure|aml|bmt workup|lymphadenopathy|not feeling well)\b", "Clinical evaluation."),
+        (r"\b(?:pleural effusion|pneumothorax|mental status changes|flulike symptoms|weakness|placement)\b", "Clinical evaluation."),
+        (r"\b(?:preop|preoperative|pre-op)\b", "Preprocedure evaluation."),
+    )
+    readable_ctx = _remove_placeholders(ctx_clean)
+    for pattern, generalized in generalizations:
+        match = re.search(pattern, readable_ctx, re.I)
+        if not match:
+            continue
+        removed = match.group(0).strip()
+        if not _readable_evidence(removed) or not assess_context_completeness(generalized):
+            continue
+        if generalized.strip().casefold() == "clinical evaluation.":
+            continue
+        if generalized.lower().strip(".") == readable_ctx.lower().strip(" ."):
+            continue
+        return generalized, removed, "readable_concept_generalization", "success"
 
-    for term, generalized in specific_clinical_removals:
-        if term in ctx_clean.lower():
-            return generalized, term, "evidenced_term_generalization", "success"
+    return "", "", "no_safe_evidence_removal", "generation_failed"
 
-    words = ctx_clean.split()
-    if len(words) == 1:
-        return "Clinical evaluation.", words[0], "single_symptom_generalization", "success"
 
-    return "Clinical evaluation.", ctx_clean, "fallback_generalization", "success"
+def _explicit_polarity(text: str, target: str) -> Tuple[str, str]:
+    """Return unambiguous explicit polarity and its supporting sentence for a finding."""
+    config = CONFLICT_TARGETS[target]
+    polarities = []
+    evidence_sentences = []
+    text_sentences = []
+    for sentence in split_sentences(str(text).lower()):
+        text_sentences.extend(part.strip() for part in re.split(r"[;:]", sentence) if part.strip())
+    for sentence in text_sentences:
+        for alias in config["aliases"]:
+            for match in re.finditer(rf"(?<!\w){re.escape(alias.lower())}(?!\w)", sentence):
+                start = match.start()
+                prefix = sentence[:start]
+                # A contrast starts a new local polarity scope.
+                prefix = re.split(r"\b(?:but|however|although|yet)\b", prefix)[-1]
+                prefix = re.sub(r"\bno\s+change(?:s)?\s+(?:in|to)\b", " ", prefix)
+                prior = prefix[-100:]
+                if re.search(r"\b(?:history\s+of|prior\s+history\s+of)\s*$", prior):
+                    continue
+                if any(cue in prior for cue in UNCERTAINTY_CUES):
+                    continue
+                negated = bool(re.search(
+                    r"\b(?:no|without|absent|negative\s+for|free\s+of|lacking)\b"
+                    r"(?:[\w, /-]{0,90})$",
+                    prior,
+                ))
+                after = sentence[match.end():match.end() + 45]
+                negated = negated or bool(re.match(
+                    r"\s*(?:is|was|are|were)?\s*(?:absent|not\s+(?:present|suspected|seen|identified|visualized|demonstrated|evident))\b",
+                    after,
+                ))
+                polarities.append("NEGATED" if negated else "AFFIRMED")
+                evidence_sentences.append(sentence.strip())
+    if not polarities and target == "pneumonia":
+        explicit_absence_patterns = (
+            r"\bno\s+acute\s+(?:pulmonary|cardiopulmonary)\s+(?:disease|abnormality|process|findings?)\b",
+            r"\b(?:lungs?\s+(?:(?:are|were|remain|appear)\s+)?(?:hypoinflated\s+but\s+)?clear|clear\s+lungs)\b",
+            r"\blungs?\s+remain\s+clear\b",
+        )
+        for sentence in text_sentences:
+            if any(re.search(pattern, sentence) for pattern in explicit_absence_patterns):
+                polarities.append("NEGATED")
+                evidence_sentences.append(sentence.strip())
+    if not polarities and target == "cardiomegaly":
+        explicit_normal_size_patterns = (
+            r"\bheart\s+is\s+normal\s+in\s+size\b",
+            r"\bheart\s+size\s+(?:is\s+)?within\s+normal\s+limits\b",
+            r"\bheart\s+size\s+is\s+normal\b",
+            r"\bcardiac\s+silhouette\s+is\s+normal\s+in\s+size\b",
+            r"\bheart\s+and\s+mediastinum\s+normal\b",
+        )
+        for sentence in text_sentences:
+            if any(re.search(pattern, sentence) for pattern in explicit_normal_size_patterns):
+                polarities.append("NEGATED")
+                evidence_sentences.append(sentence.strip())
+    if not polarities or len(set(polarities)) != 1:
+        return "AMBIGUOUS", ""
+    return polarities[0], " | ".join(dict.fromkeys(evidence_sentences))
+
+
+def _context_polarity(context: str, target: str) -> str:
+    polarity, _ = _explicit_polarity(context, target)
+    return polarity
 
 
 def generate_conflict(findings: str, impression: str) -> Tuple[str, str, str, str]:
@@ -221,118 +419,20 @@ def generate_conflict(findings: str, impression: str) -> Tuple[str, str, str, st
     Generates a conservative clinical-context contradiction based on reference report evidence.
     Returns: (perturbed_context, conflict_target, conflict_source_text, status)
     """
-    text = (str(findings) + " " + str(impression)).lower()
+    reference_text = f"{findings} {impression}"
+    for target, config in CONFLICT_TARGETS.items():
+        reference_polarity, evidence = _explicit_polarity(reference_text, target)
+        if reference_polarity not in {"AFFIRMED", "NEGATED"}:
+            continue
+        generated_polarity = "NEGATED" if reference_polarity == "AFFIRMED" else "AFFIRMED"
+        context_key = "negative_context" if generated_polarity == "NEGATED" else "positive_context"
+        perturbed_context = config[context_key]
+        if _context_polarity(perturbed_context, target) != generated_polarity:
+            continue
+        conflict_target = f"{target}_{'presence' if reference_polarity == 'AFFIRMED' else 'absence'}"
+        return perturbed_context, conflict_target, evidence, "success"
 
-    if "pneumothorax" in text:
-        if any(
-            neg in text
-            for neg in [
-                "no pneumothorax",
-                "no pneumothoraces",
-                "without pneumothorax",
-                "free of pneumothorax",
-                "no evidence of pneumothorax",
-                "negative for pneumothorax",
-            ]
-        ):
-            return (
-                "Patient presenting with sudden onset shortness of breath following trauma, evaluate acute pneumothorax.",
-                "pneumothorax_absence",
-                "no pneumothorax reported in reference findings/impression",
-                "success",
-            )
-        else:
-            return (
-                "Routine follow-up chest radiograph, no trauma or pneumothorax suspected.",
-                "pneumothorax_presence",
-                "pneumothorax present in reference findings/impression",
-                "success",
-            )
-
-    if "effusion" in text:
-        if any(
-            neg in text
-            for neg in [
-                "no pleural effusion",
-                "no effusion",
-                "without effusion",
-                "free of effusion",
-                "no evidence of effusion",
-                "no pleural effusions",
-            ]
-        ):
-            return (
-                "Shortness of breath and orthopnea, evaluate for worsening pleural effusion.",
-                "effusion_absence",
-                "no pleural effusion reported in reference findings/impression",
-                "success",
-            )
-        else:
-            return (
-                "Routine preoperative evaluation, no history of pleural effusion.",
-                "effusion_presence",
-                "pleural effusion present in reference findings/impression",
-                "success",
-            )
-
-    if any(term in text for term in ["cardiomegaly", "enlarged heart", "enlarged cardiac silhouette"]):
-        if any(neg in text for neg in ["no cardiomegaly", "without cardiomegaly"]):
-            return (
-                "History of severe cardiomegaly and congestive heart failure.",
-                "cardiomegaly_absence",
-                "no cardiomegaly reported in reference findings/impression",
-                "success",
-            )
-        else:
-            return (
-                "Normal heart size, evaluate for non-cardiac chest pain.",
-                "cardiomegaly_presence",
-                "cardiomegaly present in reference findings/impression",
-                "success",
-            )
-
-    if any(term in text for term in ["consolidation", "infiltrate", "pneumonia", "opacity", "opacities"]):
-        if any(
-            neg in text
-            for neg in [
-                "no consolidation",
-                "no focal consolidation",
-                "no focal opacity",
-                "no focal opacities",
-                "no infiltrate",
-                "no infiltrates",
-                "without opacity",
-                "no pneumonia",
-            ]
-        ):
-            return (
-                "Fever, cough, and chills, evaluate for acute focal pneumonia and consolidation.",
-                "consolidation_absence",
-                "no focal consolidation reported in reference findings/impression",
-                "success",
-            )
-        else:
-            return (
-                "Screening chest radiograph, clear lungs without focal consolidation.",
-                "consolidation_presence",
-                "consolidation/opacity present in reference findings/impression",
-                "success",
-            )
-
-    if any(term in text for term in ["clear", "normal", "unremarkable", "no acute"]):
-        return (
-            "Patient with high fever and shortness of breath, evaluate acute multifocal pneumonia.",
-            "normal_exam_contradiction",
-            "reference report indicates clear/normal exam",
-            "success",
-        )
-
-    return (
-        "Lungs are clear without acute cardiopulmonary disease.",
-        "unspecified_abnormal_contradiction",
-        "reference report describes minor findings",
-        "success",
-    )
+    return "", "", "no_explicit_opposite_polarity_reference_evidence", "generation_failed"
 
 
 def generate_phase16c_perturbations(
@@ -345,8 +445,8 @@ def generate_phase16c_perturbations(
     if len(selected_df) != 100:
         raise ValueError(f"Expected exactly 100 selected studies, found {len(selected_df)}")
 
-    # Deterministic derangement for irrelevant condition
-    derangement = generate_derangement(len(selected_df), seed=seed)
+    # A deterministic screened perfect matching avoids obvious target-evidence overlap.
+    donor_assignment = generate_irrelevant_assignment(selected_df, seed=seed)
 
     records = []
 
@@ -381,6 +481,7 @@ def generate_phase16c_perturbations(
             "conflict_method": "",
             "conflict_source_text": "",
             "generation_status": "success",
+            "generation_failure_reason": "",
         })
 
         # 2. SYNTACTIC INCOMPLETE
@@ -405,6 +506,7 @@ def generate_phase16c_perturbations(
             "conflict_method": "",
             "conflict_source_text": "",
             "generation_status": syn_status,
+            "generation_failure_reason": "" if syn_status == "success" else "no_structural_truncation_found",
         })
 
         # 3. EVIDENTIARY INCOMPLETE
@@ -429,14 +531,24 @@ def generate_phase16c_perturbations(
             "conflict_method": "",
             "conflict_source_text": "",
             "generation_status": evi_status,
+            "generation_failure_reason": "" if evi_status == "success" else evi_removed or evi_method,
         })
 
         # 4. IRRELEVANT
-        donor_idx = derangement[i]
-        donor_row = selected_df.iloc[donor_idx]
-        donor_uid = donor_row["uid"]
-        donor_sample_id = donor_row["sample_id"]
-        donor_ctx = str(donor_row["clinical_context"])
+        donor_idx = donor_assignment.get(i)
+        if donor_idx is not None:
+            donor_row = selected_df.iloc[donor_idx]
+            donor_uid = donor_row["uid"]
+            donor_sample_id = donor_row["sample_id"]
+            donor_ctx = str(donor_row["clinical_context"])
+            irrel_status = "success"
+            irrel_failure_reason = ""
+        else:
+            donor_uid = ""
+            donor_sample_id = ""
+            donor_ctx = ""
+            irrel_status = "generation_failed"
+            irrel_failure_reason = "no_screened_nonself_donor_available"
         records.append({
             "sample_id": sample_id,
             "uid": uid,
@@ -452,11 +564,12 @@ def generate_phase16c_perturbations(
             "source_context_uid": donor_uid,
             "source_context_sample_id": donor_sample_id,
             "removed_evidence_text": "",
-            "evidentiary_incomplete_method": "",
+            "evidentiary_incomplete_method": "deterministic_screened_donor_assignment",
             "conflict_target": "",
             "conflict_method": "",
             "conflict_source_text": "",
-            "generation_status": "success",
+            "generation_status": irrel_status,
+            "generation_failure_reason": irrel_failure_reason,
         })
 
         # 5. CONFLICTING
@@ -478,9 +591,10 @@ def generate_phase16c_perturbations(
             "removed_evidence_text": "",
             "evidentiary_incomplete_method": "",
             "conflict_target": conf_target,
-            "conflict_method": "reference_evidence_contradiction",
-            "conflict_source_text": conf_source,
+            "conflict_method": "explicit_reference_polarity_contradiction" if conf_status == "success" else "",
+            "conflict_source_text": conf_source if conf_status == "success" else "",
             "generation_status": conf_status,
+            "generation_failure_reason": "" if conf_status == "success" else conf_source,
         })
 
         # 6. INSUFFICIENT
@@ -504,6 +618,7 @@ def generate_phase16c_perturbations(
             "conflict_method": "",
             "conflict_source_text": "",
             "generation_status": "success",
+            "generation_failure_reason": "",
         })
 
     result_df = pd.DataFrame(records)
@@ -520,6 +635,15 @@ def generate_phase16c_perturbations(
     status_by_condition = (
         result_df.groupby(["condition", "generation_status"]).size().unstack(fill_value=0).to_dict()
     )
+    methods_by_condition: Dict[str, Dict[str, int]] = {}
+    for condition, group in result_df.groupby("condition"):
+        method_column = "conflict_method" if condition == "conflicting" else "evidentiary_incomplete_method"
+        methods = [value for value in group[method_column].astype(str) if value]
+        methods_by_condition[condition] = dict(Counter(methods))
+    failures_by_condition: Dict[str, Dict[str, int]] = {}
+    failed_df = result_df[result_df["generation_status"] != "success"]
+    for condition, group in failed_df.groupby("condition"):
+        failures_by_condition[condition] = dict(Counter(group["generation_failure_reason"].astype(str)))
 
     complete_studies = 0
     for uid_val, group in result_df.groupby("uid"):
@@ -531,6 +655,8 @@ def generate_phase16c_perturbations(
         "total_perturbation_records": len(result_df),
         "counts_by_condition": counts_by_condition,
         "status_by_condition": status_by_condition,
+        "methods_by_condition": methods_by_condition,
+        "failures_by_condition": failures_by_condition,
         "complete_six_state_studies": complete_studies,
         "seed": seed,
     }
@@ -563,6 +689,9 @@ def main() -> None:
     for cond in VALID_CONDITIONS:
         cnt = stats["counts_by_condition"].get(cond, 0)
         print(f"  {cond:24s}: {cnt}")
+    print("\nGeneration failures:")
+    for cond, failures in stats["failures_by_condition"].items():
+        print(f"  {cond}: {failures}")
 
     print("\nPhase 16C perturbation generation complete.")
 
