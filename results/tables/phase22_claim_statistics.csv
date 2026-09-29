@@ -1,0 +1,2 @@
+analysis,n,baseline_positive_records,gated_positive_records,baseline_only_discordant_pairs,gated_only_discordant_pairs,discordant_pairs,test,p_value,analysis_family
+record_level_unsupported_claim_presence,576,74,64,14,4,18,"Exact McNemar via two-sided binomial test on discordant pairs, null probability 0.5",0.0308837890625,"secondary, reported separately; no Holm correction"

@@ -3,7 +3,7 @@ from pathlib import Path
 
 import torch
 from PIL import Image
-from transformers import AutoProcessor, AutoModelForCausalLM
+from transformers import AutoProcessor, BlipForConditionalGeneration
 
 
 MODEL_NAME = "nathansutton/generate-cxr"
@@ -26,8 +26,7 @@ class BaselineGenerator:
     Initial CXR report-generation baseline.
 
     This model is used for pipeline validation.
-    The clinical-context conditioning mechanism will be
-    implemented separately in the research pipeline.
+    Clinical context is included in the BLIP text prompt.
     """
 
     def __init__(self, model_name: str = MODEL_NAME):
@@ -35,7 +34,7 @@ class BaselineGenerator:
 
         self.processor = AutoProcessor.from_pretrained(model_name)
 
-        self.model = AutoModelForCausalLM.from_pretrained(
+        self.model = BlipForConditionalGeneration.from_pretrained(
             model_name,
             torch_dtype=torch.float32,
         )
@@ -46,9 +45,14 @@ class BaselineGenerator:
 
         image = Image.open(inputs.image_path).convert("RGB")
 
-        prompt = (
-            "Generate a radiology report for this chest X-ray."
-        )
+        if inputs.clinical_context.strip():
+            prompt = (
+                "Clinical indication: "
+                f"{inputs.clinical_context.strip()} "
+                "Generate a radiology report for this chest X-ray."
+            )
+        else:
+            prompt = "Generate a radiology report for this chest X-ray."
 
         model_inputs = self.processor(
             images=image,

@@ -1,0 +1,5 @@
+cohort,endpoint,n,zero_differences,positive_differences,negative_differences,mean_difference,median_difference,difference_q1,difference_q3,difference_iqr
+all_records_primary,radgraph_f1,576,304,111,161,-0.030838020833333337,0.0,-0.029474999999999994,0.0,0.029474999999999994
+all_records_primary,chexpert_f1,576,483,42,51,-0.002042361111111111,0.0,0.0,0.0,0.0
+covered_only_secondary,radgraph_f1,480,299,111,70,0.003782083333333334,0.0,0.0,0.0,0.0
+covered_only_secondary,chexpert_f1,480,431,27,22,0.006349166666666668,0.0,0.0,0.0,0.0

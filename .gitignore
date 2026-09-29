@@ -4,8 +4,10 @@ __pycache__/
 
 data/raw/
 data/processed/
-models/
+data/samples/
+external_data/
 
+models/
 *.pth
 *.pt
 *.bin
@@ -16,5 +18,7 @@ models/
 .env
 
 results/raw/
-data/samples/images/
-external_data/
+results/baseline/
+results/gated/
+results/qualitative/
+results/figures/
