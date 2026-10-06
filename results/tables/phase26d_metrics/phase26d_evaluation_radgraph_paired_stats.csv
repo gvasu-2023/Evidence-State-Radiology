@@ -1,0 +1,2 @@
+metric,n_pairs,n_nonzero_differences,lambda0_mean,lambda025_mean,mean_delta_lambda025_minus_lambda0,median_delta,wilcoxon_statistic,wilcoxon_p_value,rank_biserial
+radgraph_f1,480,277,0.11823509276005441,0.12046682595491279,0.0022317331948583665,0.0,17968.5,0.3363292101181874,0.15022386907518914

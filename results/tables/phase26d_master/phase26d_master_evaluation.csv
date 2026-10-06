@@ -1,0 +1,6 @@
+metric,lambda_0,lambda_025,absolute_delta,relative_change,paired_test,p_value,interpretation
+Unsupported claim rate,0.1828877005347593,0.1804511278195488,-0.0024365727152105,-0.013322780635800106,Wilcoxon,0.318635,Slight reduction; not statistically significant
+RadGraph precision,0.1881163061476282,0.1858665844479952,-0.0022497216996330005,-0.011959206225681916,Not separately tested,,Small decrease
+RadGraph recall,0.1657536190510923,0.1648298288609771,-0.0009237901901151813,-0.005573273123107073,Not separately tested,,Small decrease
+RadGraph F1,0.1182350927600544,0.1204668259549127,0.0022317331948583097,0.018875387524644446,Wilcoxon signed-rank,0.3363292101181874,Small increase; not statistically significant
+Custom CheXpert-style F1,0.2478869047619047,0.2431646825396825,-0.004722222222222211,-0.01904990595109453,Wilcoxon signed-rank,0.7119592027948771,Small decrease; not statistically significant

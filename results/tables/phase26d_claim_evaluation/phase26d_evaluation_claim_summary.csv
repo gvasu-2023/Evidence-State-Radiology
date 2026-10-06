@@ -1,0 +1,3 @@
+lambda,comparison_rows,supported,omission,extra_negation,ungrounded_affirmation,unsupported_affirmation,contradiction,unclear,unsupported_claim_count,unsupported_claim_rate_denominator,unsupported_claim_rate
+0.0,1940,471,1005,269,91,35,45,24,171,935,0.18288770053475936
+0.25,1924,479,993,271,77,38,53,13,168,931,0.18045112781954886

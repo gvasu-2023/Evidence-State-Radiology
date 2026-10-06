@@ -1,0 +1,2 @@
+metric,n_pairs,n_nonzero_differences,lambda0_mean,lambda025_mean,mean_delta_lambda025_minus_lambda0,median_delta,wilcoxon_statistic,wilcoxon_p_value,rank_biserial
+chexpert_f1,480,128,0.24788690476190475,0.24316468253968254,-0.0047222222222222205,0.0,3973.0,0.7119592027948771,-0.09282801631086592
