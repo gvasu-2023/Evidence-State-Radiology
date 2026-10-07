@@ -1,0 +1,5 @@
+analysis,phase,frozen_historical_p,current_paired_vector_p,saved_delta_vector_p,current_exact_paired_status_p,baseline_only_discordant,selected_only_discordant,interpretation
+Unsupported claim rate Wilcoxon,26D,0.318635,0.3186348599,0.3388234605,,,,Historically reproduced to recorded precision using paired baseline/selected rate columns.
+RadGraph F1 Wilcoxon,26D,0.3363292101181874,0.3357641671,0.3355760399,,,,Exact historical value is not reproducible from surviving Phase 26D artifacts; documented statistical-provenance exception.
+Custom CheXpert-style F1 Wilcoxon,26D,0.7119592027948771,0.7119592028,0.70750481,,,,Historically reproduced using paired score columns.
+Unsupported-claim status McNemar/binomial,26D,,,,0.8013064925,30.0,33.0,Phase 26D result from 30/33 discordants. Phase 22 p=0.0308837890625 used separate 14/4 discordants and is not a Phase 26D value.

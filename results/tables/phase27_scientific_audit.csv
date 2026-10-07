@@ -1,0 +1,51 @@
+section,check,status,expected,observed,detail,overall_status
+A. Study split,100 selected studies,PASS,100,100,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+A. Study split,16 development studies,PASS,16,16,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+A. Study split,Development IDs exactly match frozen list,PASS,"[195, 227, 253, 282, 290, 317, 458, 494, 577, 783, 793, 936, 960, 965, 1025, 1165]","[195, 227, 253, 282, 290, 317, 458, 494, 577, 783, 793, 936, 960, 965, 1025, 1165]",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+A. Study split,84 nominal evaluation studies before frontal exclusion,PASS,84,84,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+A. Study split,Development and nominal evaluation disjoint,PASS,disjoint,0,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+A. Study split,Development and delivered evaluation split disjoint,PASS,disjoint,0,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+A. Study split,Four ineligible UIDs are in nominal evaluation cohort,PASS,"[74, 597, 803, 885]","[74, 597, 803, 885]",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+A. Study split,80 eligible evaluation studies,PASS,80,80,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+A. Study split,Split evaluation IDs match nominal cohort after exclusions,PASS,80,80,missing=[] extra=[],PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+A. Study split,Frontal-ineligible UID set matches exclusions,PASS,"[74, 597, 803, 885]","[74, 597, 803, 885]",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+A. Study split,All excluded UID condition records are ineligible,PASS,24 ineligible records,24 records; eligible=0,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+B. Generation,960 total trajectories,PASS,960,960,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+B. Generation,80 unique evaluation studies,PASS,80,80,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+B. Generation,480 trajectories per lambda,PASS,0.00=480; 0.25=480,"{0.0: 480, 0.25: 480}",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+B. Generation,Exactly six expected conditions,PASS,"['conflicting', 'evidentiary_incomplete', 'insufficient', 'irrelevant', 'sufficient', 'syntactic_incomplete']","['conflicting', 'evidentiary_incomplete', 'insufficient', 'irrelevant', 'sufficient', 'syntactic_incomplete']",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+B. Generation,160 trajectories per condition,PASS,160 each,"{'conflicting': 160, 'evidentiary_incomplete': 160, 'insufficient': 160, 'irrelevant': 160, 'sufficient': 160, 'syntactic_incomplete': 160}",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+B. Generation,No development studies,PASS,none,[],,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+B. Generation,No excluded UID trajectories,PASS,none,[],,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+B. Generation,No duplicate sample-condition-lambda keys,PASS,0,0,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+B. Generation,All generation statuses succeeded,PASS,all success,{'success': 960},,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+B. Generation,All generated reports are non-empty,PASS,all non-empty,0 empty,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,3864 raw claim comparison rows,PASS,3864,3864,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,Unsupported labels exactly match approved set,PASS,"['contradiction', 'ungrounded_affirmation', 'unsupported_affirmation']","['contradiction', 'ungrounded_affirmation', 'unsupported_affirmation']",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,No unrecognized claim labels,PASS,approved label vocabulary,"['contradiction', 'extra_negation', 'omission', 'supported', 'unclear', 'ungrounded_affirmation', 'unsupported_affirmation']",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,Summary counts reproduce raw claim labels,PASS,exact grouped label counts,matched,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,Lambda 0 unsupported numerator/denominator/rate,PASS,171 / 935 = 0.1828877005...,"(171, 935, 0.18288770053475936)",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,Lambda 0.25 unsupported numerator/denominator/rate,PASS,168 / 931 = 0.1804511278...,"(168, 931, 0.18045112781954886)",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,Exactly 480 unique study-condition pairs,PASS,"480, no duplicates","rows=480, duplicates=0",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,Paired unsupported-status counts,PASS,"baseline=126, selected=129, baseline-only=30, selected-only=33, discordant=63","baseline=126, selected=129, baseline-only=30, selected-only=33, discordant=63",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,Frozen claim-rate p-value remains 0.318635,PASS,0.318635,0.318635,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,Paired-rate vector reconstruction reproduces frozen claim p-value,PASS,0.318635,0.318634859854,baseline_unsupported_rate vs selected_unsupported_rate; two-sided; zero_method=wilcox; correction=False; method=approx; reconstructed because Phase 26D source code is absent,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,Current-environment Wilcoxon from saved delta_rate computed,PASS,valid p-value,0.338823460501,independent current recomputation; not substituted for frozen p-value,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C. Claim evaluation,Exact two-sided McNemar/binomial test recomputed,PASS,"two-sided exact binomial, n=63, k=30",0.801306492504,Frozen CSVs contain discordant counts but no separate stored McNemar p-value to compare.,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+D. RadGraph,480 paired records; no duplicate study-condition keys,PASS,"480, no duplicates","rows=480, duplicates=0",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+D. RadGraph,Stored summary F1 means match frozen targets,PASS,lambda0=0.11823509276005441; lambda0.25=0.12046682595491279,"{0.0: 0.1182350927600544, 0.25: 0.1204668259549127}",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+D. RadGraph,Frozen paired-stat p-value remains at specified value,PASS,0.3363292101,0.336329210118,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+D. RadGraph,Paired-score vector reconstruction reproduces frozen p-value,EXCEPTION,0.336329210118,0.335764167125,lambda0 vs lambda0.25 score vectors; two-sided; zero_method=wilcox; correction=False; method=approx,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+D. RadGraph,Current-environment Wilcoxon from saved delta vector computed,PASS,valid p-value,0.335576039938,independent current recomputation; not substituted for frozen p-value,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+D. RadGraph,Stored paired-stat record count is 480,PASS,480,480,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+E. Custom CheXpert-style,480 paired records; no duplicate study-condition keys,PASS,"480, no duplicates","rows=480, duplicates=0",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+E. Custom CheXpert-style,Stored summary F1 means match frozen targets,PASS,lambda0=0.24788690476190475; lambda0.25=0.24316468253968254,"{0.0: 0.2478869047619047, 0.25: 0.2431646825396825}",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+E. Custom CheXpert-style,Frozen paired-stat p-value remains at specified value,PASS,0.7119592028,0.711959202795,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+E. Custom CheXpert-style,Paired-score vector reconstruction reproduces frozen p-value,PASS,0.711959202795,0.711959202795,lambda0 vs lambda0.25 score vectors; two-sided; zero_method=wilcox; correction=False; method=approx,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+E. Custom CheXpert-style,Current-environment Wilcoxon from saved delta vector computed,PASS,valid p-value,0.707504810033,independent current recomputation; not substituted for frozen p-value,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+E. Custom CheXpert-style,Stored paired-stat record count is 480,PASS,480,480,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+C-E. Statistical interpretation,All current recomputed tests are non-significant at alpha 0.05,PASS,all p-values >= 0.05,"[0.31863485985425233, 0.33882346050116097, 0.8013064925040663, 0.3357641671254561, 0.33557603993823537, 0.7119592027948771, 0.7075048100334027]",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+F. Master tables,Master table contains exactly the five specified metrics,PASS,"['Custom CheXpert-style F1', 'RadGraph F1', 'RadGraph precision', 'RadGraph recall', 'Unsupported claim rate']","['Custom CheXpert-style F1', 'RadGraph F1', 'RadGraph precision', 'RadGraph recall', 'Unsupported claim rate']",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+F. Master tables,Condition master has all 12 condition-lambda combinations,PASS,6 conditions x 2 lambdas,12,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+F. Master tables,Condition-level results show heterogeneous behavior,PASS,at least one condition metric varies,"checked=['unsupported_claim_rate', 'radgraph_f1_mean', 'chexpert_f1_mean']",,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
+G. Lambda policy,"Policy records development selection, lambda 0.25, and held-out exclusion",PASS,all three explicit statements,present,,PASS WITH DOCUMENTED REPRODUCIBILITY EXCEPTION
