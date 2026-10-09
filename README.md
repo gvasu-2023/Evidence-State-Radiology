@@ -1,44 +1,66 @@
-# Evidence-State-Aware Radiology Report Generation
+# Evidence-State-Aware Radiology Report Generation under Incomplete and Conflicting Clinical Context
 
-## Research Question
+This project studies how incomplete, irrelevant, conflicting, or insufficient clinical context affects factual reliability in vision-language model (VLM) radiology reports, and whether evidence-state-aware generation control can reduce unsupported clinical claims.
 
-How does incomplete or conflicting clinical context affect the factual reliability of medical VLM-generated radiology reports, and can evidence-state-aware gating reduce unsupported clinical claims?
+## Research system
 
-## Core Contribution
+The research pipeline combines an Evidence-State Analyzer, Reliability Gate, and evidence-aware contrastive decoding. It is evaluated with MAIRA-2, claim-level factuality measures, RadGraph, and a custom CheXpert-style evaluation on a controlled evidence-state benchmark. The work also includes a Phase 28A local research demonstrator.
 
-This project investigates an Evidence-State Analyzer and a model-agnostic Reliability Gate for medical vision-language report generation under varying evidence conditions.
+The six evidence states are:
 
-## Evidence States
+1. `sufficient`
+2. `syntactic_incomplete`
+3. `evidentiary_incomplete`
+4. `irrelevant`
+5. `conflicting`
+6. `insufficient`
 
-1. Sufficient
-2. Incomplete
-3. Irrelevant
-4. Conflicting
-5. Insufficient
+## Dataset and experiment accounting
 
-## Experimental Pipeline
+The controlled benchmark is based on IU-Xray and contains 100 selected studies and 600 frozen condition-level records: 100 records for each of the six conditions. Of the 100 studies, 96 are eligible for VLM evaluation, yielding 576 VLM condition-level records. The evaluation split uses 16 development studies and 80 held-out studies. UIDs 74, 597, 803, and 885 were excluded.
 
-CXR Image + Clinical Context
-→ Evidence Extraction
-→ Evidence-State Analysis
-→ Reliability Gate
-→ Medical VLM
-→ Claim Verification
-→ Evaluation
+## MAIRA-2 held-out evaluation
 
-## Evaluation
+The MAIRA-2 model is `microsoft/maira-2`. Its execution notebook is [`experiments/maira2/phase26d/phase26d_execution.ipynb`](experiments/maira2/phase26d/phase26d_execution.ipynb), and the extracted contrastive decoding implementation is [`src/generation/maira2_contrastive.py`](src/generation/maira2_contrastive.py). The contrastive weight, λ = 0.25, was selected on the development cohort. Held-out evaluation contains 960 trajectories: 480 at λ = 0 and 480 at λ = 0.25.
 
-Primary metrics:
+The held-out evaluation did **not** demonstrate statistically significant overall improvement. The reported aggregate comparisons (λ = 0 → λ = 0.25) are:
 
-- RadGraph-F1
-- Unsupported Clinical Claim Rate
-- CheXpert-F1
-- Expected Calibration Error
-- Brier Score
-- Coverage
-- Abstention Precision/Recall
-- Risk-Coverage
+| Measure | λ = 0 | λ = 0.25 |
+| --- | ---: | ---: |
+| Unsupported claim rate | 18.2888% | 18.0451% |
+| RadGraph F1 | 0.118235 | 0.120467 |
+| Custom CheXpert-style F1 | 0.247887 | 0.243165 |
 
-## Status
+These results do not establish state-of-the-art performance or universal improvement. The RadGraph statistical-provenance exception is documented in the Phase 27 audit: the frozen historical p-value cannot be reproduced from the surviving Phase 26D artifacts.
 
-Research prototype — not intended for clinical deployment.
+## Provenance and demonstrator
+
+The repository includes the Phase 26D execution provenance notebook, the Phase 27 scientific audit, and the Phase 28A research demonstrator. The demonstrator is a local interface for inspecting saved records and outputs and interacting with the analyzer and gate; it does not run inference.
+
+Run it from the repository root:
+
+```powershell
+.venv\Scripts\python.exe -m streamlit run demo\app.py
+```
+
+## Repository structure
+
+- `configs/` — experiment and claim ontology configuration
+- `data/` — dataset locations and processed data
+- `demo/` — Phase 28A local demonstrator
+- `docs/` — methods, evaluation, provenance, and audit documentation
+- `experiments/` — experiment notebooks and records
+- `external_data/` — external evaluation resources
+- `models/` — model-related files
+- `notebooks/` — research notebooks
+- `results/` — experiment outputs and tables
+- `src/` — preprocessing, evidence-state analysis, gating, generation, and evaluation code
+- `tests/` — automated test suite
+
+## Tests
+
+The current full test suite has **228 passing tests**. Run it with:
+
+```powershell
+.venv\Scripts\python.exe -m pytest -q
+```
